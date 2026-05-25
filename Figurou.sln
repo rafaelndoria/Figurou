@@ -5,6 +5,10 @@ VisualStudioVersion = 17.14.36109.1 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Figurou.Business", "src\Figurou.Business\Figurou.Business.csproj", "{88E95F9E-4648-4AC5-A728-A9A2FA5F331A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Figurou.Data", "src\Figurou.Data\Figurou.Data.csproj", "{B7995151-B0E2-4D3C-A60A-8906415936CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Figurou.WebApp", "src\Figurou.WebApp\Figurou.WebApp.csproj", "{B46BD0DF-1FB1-4515-9D2E-7601DDAEF670}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{88E95F9E-4648-4AC5-A728-A9A2FA5F331A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88E95F9E-4648-4AC5-A728-A9A2FA5F331A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88E95F9E-4648-4AC5-A728-A9A2FA5F331A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7995151-B0E2-4D3C-A60A-8906415936CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7995151-B0E2-4D3C-A60A-8906415936CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7995151-B0E2-4D3C-A60A-8906415936CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7995151-B0E2-4D3C-A60A-8906415936CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B46BD0DF-1FB1-4515-9D2E-7601DDAEF670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B46BD0DF-1FB1-4515-9D2E-7601DDAEF670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B46BD0DF-1FB1-4515-9D2E-7601DDAEF670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B46BD0DF-1FB1-4515-9D2E-7601DDAEF670}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

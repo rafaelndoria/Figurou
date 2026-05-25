@@ -15,7 +15,7 @@ namespace Figurou.Business.Models
             Numero = numero;
             Raridade = raridade;
 
-            SlotsPaginaAlbum = new List<SlotsPaginaAlbum>();
+            SlotsPaginaAlbum = new List<SlotPaginaAlbum>();
             FigurinhasUsuario = new List<FigurinhaUsuario>();
             TrocaItens = new List<TrocaItem>();
         }
@@ -27,7 +27,10 @@ namespace Figurou.Business.Models
         public Album Album { get; private set; } = null!;
         public Guid AlbumId { get; private set; }
 
-        public ICollection<SlotsPaginaAlbum> SlotsPaginaAlbum { get; private set; }
+        public PaginaAlbum PaginaAlbum { get; private set; } = null!;
+        public Guid PaginaAlbumId { get; private set; }
+
+        public ICollection<SlotPaginaAlbum> SlotsPaginaAlbum { get; private set; }
         public ICollection<FigurinhaUsuario> FigurinhasUsuario { get; private set; }
         public ICollection<TrocaItem> TrocaItens { get; private set; }
 

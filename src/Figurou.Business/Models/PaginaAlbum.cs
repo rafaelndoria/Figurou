@@ -16,7 +16,7 @@
             Altura = altura;
 
             Figurinhas = new List<Figurinha>();
-            SlotsPaginaAlbum = new List<SlotsPaginaAlbum>();
+            SlotsPaginaAlbum = new List<SlotPaginaAlbum>();
         }
 
         public int NumeroPagina { get; private set; }
@@ -27,7 +27,7 @@
         public Album Album { get; private set; } = null!;
         public Guid AlbumId { get; private set; }
         public ICollection<Figurinha> Figurinhas { get; private set; }
-        public ICollection<SlotsPaginaAlbum> SlotsPaginaAlbum { get; private set; }
+        public ICollection<SlotPaginaAlbum> SlotsPaginaAlbum { get; private set; }
 
         public void Atualizar(int numeroPagina, string imagemPagina, decimal largura, decimal altura)
         {

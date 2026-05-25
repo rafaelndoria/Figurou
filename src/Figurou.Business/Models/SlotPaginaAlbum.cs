@@ -1,10 +1,10 @@
 ﻿namespace Figurou.Business.Models
 {
-    public class SlotsPaginaAlbum : Entidade
+    public class SlotPaginaAlbum : Entidade
     {
-        protected SlotsPaginaAlbum() { }
+        protected SlotPaginaAlbum() { }
 
-        public SlotsPaginaAlbum(
+        public SlotPaginaAlbum(
             decimal posicaoX,
             decimal posicaoY,
             decimal largura,
