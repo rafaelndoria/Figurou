@@ -8,12 +8,12 @@ using System.Linq.Expressions;
 
 namespace Figurou.Data.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entidade, new()
+    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entidade, new()
     {
         protected readonly AppDbContext Db;
         protected readonly DbSet<TEntity> DbSet;
 
-        public Repository(AppDbContext db)
+        protected Repository(AppDbContext db)
         {
             Db = db;
             DbSet = db.Set<TEntity>();

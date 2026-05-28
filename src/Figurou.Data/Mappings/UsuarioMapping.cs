@@ -26,6 +26,9 @@ namespace Figurou.Data.Mapping
                 .IsRequired()
                 .HasMaxLength(500);
 
+            builder.Property(x => x.Papel)
+                .IsRequired();
+
             builder.Property(x => x.Ativo)
                 .IsRequired();
 

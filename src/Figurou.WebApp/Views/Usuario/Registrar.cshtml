@@ -1,0 +1,218 @@
+﻿@model RegistroUsuarioInputModel
+@{
+   Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Figurou - Cadastro</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+         rel="stylesheet">
+   <link rel="stylesheet" href="~/css/registro.css" />
+</head>
+<body>
+
+   <div class="background-glow"></div>
+
+   <div class="register-wrapper">
+
+      <div class="register-card">
+
+         <div class="text-center">
+
+            <span class="logo-badge">
+               FIGUROU
+            </span>
+
+            <h1 class="register-title">
+               Criar conta
+            </h1>
+
+            <p class="register-subtitle">
+               Monte sua coleção, encontre trocas e acompanhe seu álbum.
+            </p>
+
+         </div>
+
+         <form asp-controller="Usuario"
+               asp-action="Registrar"
+               method="post">
+            
+            @Html.Partial("_ErrorSummary")
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3">
+            </div>
+
+            <div class="row">
+
+               <div class="col-md-6 mb-4">
+
+                  <label asp-for="Username"
+                         class="form-label">
+                  </label>
+
+                  <input asp-for="Username"
+                         class="custom-input"
+                         placeholder="Seu username"
+                         autocomplete="off" />
+
+                  <span asp-validation-for="Username"
+                        class="text-danger">
+                  </span>
+
+               </div>
+
+               <div class="col-md-6 mb-4">
+
+                  <label asp-for="Email"
+                         class="form-label">
+                  </label>
+
+                  <input asp-for="Email"
+                         class="custom-input"
+                         placeholder="Seu e-mail"
+                         autocomplete="off" />
+
+                  <span asp-validation-for="Email"
+                        class="text-danger">
+                  </span>
+
+               </div>
+
+            </div>
+
+            <div class="row">
+
+               <div class="col-md-6 mb-4">
+
+                  <label asp-for="Senha"
+                         class="form-label">
+                  </label>
+
+                  <div class="password-wrapper">
+
+                     <input asp-for="Senha"
+                            type="password"
+                            class="custom-input password-input"
+                            placeholder="Digite sua senha"
+                            autocomplete="new-password"
+                            oncopy="return false"
+                            onpaste="return false"
+                            oncut="return false" />
+
+                     <button type="button"
+                             class="toggle-password"
+                             onclick="togglePassword('Senha', this)">
+
+                        👁
+
+                     </button>
+
+                  </div>
+
+                  <span asp-validation-for="Senha"
+                        class="text-danger">
+                  </span>
+
+               </div>
+
+               <div class="col-md-6 mb-4">
+
+                  <label asp-for="ConfirmarSenha"
+                         class="form-label">
+                  </label>
+
+                  <div class="password-wrapper">
+
+                     <input asp-for="ConfirmarSenha"
+                            type="password"
+                            class="custom-input password-input"
+                            placeholder="Confirme sua senha"
+                            autocomplete="new-password"
+                            oncopy="return false"
+                            onpaste="return false"
+                            oncut="return false" />
+
+                     <button type="button"
+                             class="toggle-password"
+                             onclick="togglePassword('ConfirmarSenha', this)">
+
+                        👁
+
+                     </button>
+
+                  </div>
+
+                  <span asp-validation-for="ConfirmarSenha"
+                        class="text-danger">
+                  </span>
+
+               </div>
+
+            </div>
+
+            <button type="submit"
+                    class="btn-register">
+
+               Criar conta
+
+            </button>
+
+         </form>
+
+         <div class="divider">
+            ou
+         </div>
+
+         <div class="bottom-text">
+
+            Já possui conta?
+
+            <a asp-controller="Usuario"
+               asp-action="Login"
+               class="link-default">
+
+               Entrar agora
+
+            </a>
+
+         </div>
+
+      </div>
+
+   </div>
+
+   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@4.0.0/dist/jquery.validate.unobtrusive.min.js"></script>
+
+   <script>
+
+      function togglePassword(inputId, button) {
+
+          const input = document.getElementById(inputId);
+
+          if (input.type === "password") {
+
+              input.type = "text";
+              button.innerHTML = "🙈";
+
+          }
+          else {
+
+              input.type = "password";
+              button.innerHTML = "👁";
+
+          }
+      }
+
+   </script>
+
+</body>
+
+</html>

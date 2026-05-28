@@ -1,8 +1,222 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+   Layout = null;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Figurou - Sua coleção inteligente</title>
+
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="~/css/inicio.css" />
+</head>
+<body>
+
+   <div class="background-glow"></div>
+   <div class="background-glow-2"></div>
+
+   <header>
+      <div class="container">
+         <nav>
+            <div class="logo">Figu<span>rou</span></div>
+
+            <div class="nav-links">
+               <a href="#features">Funcionalidades</a>
+               <a href="#ia">IA</a>
+               <a href="#match">Trocas</a>
+               <a href="#album">Álbum Virtual</a>
+               <a asp-controller="Usuario" asp-action="Login">Entrar</a>
+               <a class="btn-primary" href="#">Começar Agora</a>
+            </div>
+         </nav>
+      </div>
+   </header>
+
+   <section class="hero">
+      <div class="container">
+         <div class="hero-grid">
+
+            <div>
+               <div class="badge">
+                  ⚡ Plataforma inteligente para colecionadores
+               </div>
+
+               <h1>
+                  Sua coleção de figurinhas <span>automatizada</span>.
+               </h1>
+
+               <p>
+                  Escaneie pacotes em tempo real, detecte figurinhas repetidas automaticamente, encontre pessoas para trocar na sua região e acompanhe a evolução completa do seu álbum digital.
+               </p>
+
+               <div class="hero-actions">
+                  <a class="btn-primary" asp-controller="Usuario" asp-action="Registrar">Criar Conta</a>
+                  <a class="btn-secondary" href="#">Ver Demonstração</a>
+               </div>
+            </div>
+
+            <div class="dashboard-card">
+               <div class="dashboard-top">
+                  <div>
+                     <div class="dashboard-title">Álbum Copa 2026</div>
+                     <div class="dashboard-sub">Gerenciamento inteligente de coleção</div>
+                  </div>
+
+                  <div>🏆</div>
+               </div>
+
+               <div class="progress">
+                  <div class="progress-header">
+                     <span>Progresso do álbum</span>
+                     <span>72%</span>
+                  </div>
+
+                  <div class="progress-bar">
+                     <div class="progress-fill"></div>
+                  </div>
+               </div>
+
+               <div class="stats">
+                  <div class="stat">
+                     <h3>482</h3>
+                     <p>Figurinhas no álbum</p>
+                  </div>
+
+                  <div class="stat">
+                     <h3>63</h3>
+                     <p>Figurinhas repetidas</p>
+                  </div>
+
+                  <div class="stat">
+                     <h3>14</h3>
+                     <p>Trocas realizadas</p>
+                  </div>
+
+                  <div class="stat">
+                     <h3>91%</h3>
+                     <p>Compatibilidade IA</p>
+                  </div>
+               </div>
+            </div>
+
+         </div>
+      </div>
+   </section>
+
+   <section class="features" id="features">
+      <div class="container">
+
+         <div class="section-title">
+            <span>Funcionalidades</span>
+            <h2>Um ecossistema completo para colecionadores</h2>
+            <p>
+               O Figurou foi arquitetado para transformar completamente a experiência de colecionar figurinhas, utilizando inteligência artificial, matching inteligente e automação em tempo real.
+            </p>
+         </div>
+
+         <div class="feature-grid">
+
+            <div class="feature-card">
+               <div class="feature-icon">📷</div>
+               <h3>Leitura Inteligente</h3>
+               <p>
+                  Escaneie pacotes ou páginas completas utilizando a câmera. O sistema detecta automaticamente códigos, repetidas e figurinhas faltantes.
+               </p>
+            </div>
+
+            <div class="feature-card">
+               <div class="feature-icon">🤝</div>
+               <h3>Match de Trocas</h3>
+               <p>
+                  Algoritmo de compatibilidade que encontra usuários próximos com figurinhas complementares para troca.
+               </p>
+            </div>
+
+            <div class="feature-card">
+               <div class="feature-icon">🧠</div>
+               <h3>Inteligência Artificial</h3>
+               <p>
+                  Identificação automática das posições no álbum utilizando OCR e processamento geométrico de páginas.
+               </p>
+            </div>
+
+            <div class="feature-card">
+               <div class="feature-icon">🏆</div>
+               <h3>Sistema de Níveis</h3>
+               <p>
+                  Reputação, experiência, ranking de colecionadores e gamificação completa baseada em trocas reais.
+               </p>
+            </div>
+
+            <div class="feature-card">
+               <div class="feature-icon">💬</div>
+               <h3>Chat em Tempo Real</h3>
+               <p>
+                  Converse diretamente dentro das negociações e organize encontros para trocas físicas.
+               </p>
+            </div>
+
+            <div class="feature-card">
+               <div class="feature-icon">📚</div>
+               <h3>Álbum Digital</h3>
+               <p>
+                  Acompanhe seu progresso visualmente, veja faltantes, repetidas e estatísticas avançadas da coleção.
+               </p>
+            </div>
+
+         </div>
+      </div>
+   </section>
+
+   <section class="showcase" id="album">
+      <div class="container">
+         <div class="showcase-box">
+
+            <div>
+               <h2>
+                  Álbum virtual inteligente com leitura automática.
+               </h2>
+
+               <p>
+                  Utilizando posicionamento geométrico de slots, o sistema identifica exatamente quais espaços do álbum já estão preenchidos, quais ainda faltam e quais usuários possuem as figurinhas necessárias para completar sua coleção.
+               </p>
+            </div>
+
+            <div class="album-preview">
+               <h3>Seleção Canadá</h3>
+
+               <div class="album-grid">
+                  <div class="sticker-slot filled"></div>
+                  <div class="sticker-slot filled"></div>
+                  <div class="sticker-slot"></div>
+                  <div class="sticker-slot filled"></div>
+                  <div class="sticker-slot"></div>
+                  <div class="sticker-slot filled"></div>
+                  <div class="sticker-slot"></div>
+                  <div class="sticker-slot filled"></div>
+               </div>
+            </div>
+
+         </div>
+      </div>
+   </section>
+
+   <footer>
+      <div class="container">
+         <div class="footer-content">
+            <div class="logo">Figu<span>rou</span></div>
+            <p>
+               Plataforma inteligente para gerenciamento de coleções e trocas de figurinhas.
+            </p>
+         </div>
+      </div>
+   </footer>
+
+</body>
+</html>
+
+

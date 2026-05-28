@@ -1,8 +1,10 @@
-﻿namespace Figurou.Business.Models
+﻿using Figurou.Business.Enums;
+
+namespace Figurou.Business.Models
 {
     public class Usuario : Entidade
     {
-        protected Usuario() { }
+        public Usuario() { }
 
         public Usuario(
             string userName,
@@ -14,19 +16,15 @@
             SenhaCodificada = senhaCodificada;
 
             Ativo = true;
-
             DataCriacao = DateTime.UtcNow;
+            Papel = EUsuarioRole.UsuarioPadrao;
 
             FigurinhasUsuario = new List<FigurinhaUsuario>();
-
             TrocasSolicitadas = new List<Troca>();
             TrocasRecebidas = new List<Troca>();
-
             TrocaItens = new List<TrocaItem>();
-
             MatchesSolicitados = new List<Match>();
             MatchesRecebidos = new List<Match>();
-
             Mensagens = new List<Mensagem>();
         }
 
@@ -35,6 +33,7 @@
         public string SenhaCodificada { get; private set; }
         public bool Ativo { get; private set; }
         public DateTime DataCriacao { get; private set; }
+        public EUsuarioRole Papel { get; private set; }
 
         public UsuarioDetalhe? UsuarioDetalhes { get; private set; }
 
