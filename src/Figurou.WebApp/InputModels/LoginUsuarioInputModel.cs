@@ -1,4 +1,4 @@
-﻿namespace Figurou.WebApp.InputModel
+﻿namespace Figurou.WebApp.InputModels
 {
     public class LoginUsuarioInputModel
     {

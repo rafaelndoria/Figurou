@@ -1,7 +1,7 @@
-﻿using Figurou.Business.Interfaces;
+﻿using Figurou.Business.DTOs;
+using Figurou.Business.Interfaces;
 using Figurou.Business.Models;
 using Figurou.Business.Services.Interfaces;
-using Figurou.WebApp.InputModel;
 
 namespace Figurou.Business.Services.Implementations
 {
@@ -19,7 +19,7 @@ namespace Figurou.Business.Services.Implementations
             _authService = authService;
         }
 
-        public async Task<Usuario?> Cadastrar(RegistroUsuarioInputModel registroUsuario)
+        public async Task<Usuario?> Cadastrar(CadastrarUsuarioDTO registroUsuario)
         {
             var usuarioExistente = (await _usuarioRepository.BuscarAsync(
                 x => x.Username == registroUsuario.Username
@@ -42,7 +42,7 @@ namespace Figurou.Business.Services.Implementations
             return usuario;
         }
 
-        public async Task<Usuario?> Login(LoginUsuarioInputModel loginUsuario)
+        public async Task<Usuario?> Login(LoginUsuarioDTO loginUsuario)
         {
             var senhaCodificada = _authService.CriptografarSenha(loginUsuario.Senha);
 

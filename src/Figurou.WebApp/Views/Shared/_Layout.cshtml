@@ -12,193 +12,131 @@
 </head>
 
 <body>
-
    <div class="background-glow glow-1"></div>
    <div class="background-glow glow-2"></div>
-
    <div class="dashboard-container">
-
       <!-- SIDEBAR -->
-
       <aside class="sidebar">
-
          <div>
-
             <div class="sidebar-logo">
                FIGUROU
             </div>
-
             <!-- MENU -->
-
             <div class="sidebar-section">
                MENU
             </div>
-
             <nav class="sidebar-nav">
-
                <a href="/dashboard" class="sidebar-link active">
                   <i class="fa-solid fa-chart-line"></i>
                   <span>Dashboard</span>
                </a>
-
                <a href="/album/meu-album" class="sidebar-link">
                   <i class="fa-solid fa-book"></i>
                   <span>Meu Álbum</span>
                </a>
-
                <a href="/album/virtual" class="sidebar-link">
                   <i class="fa-solid fa-images"></i>
                   <span>Álbum Virtual</span>
                </a>
-
                <a href="/leitura-ia/pagina" class="sidebar-link">
                   <i class="fa-solid fa-camera"></i>
                   <span>Leitura IA</span>
                </a>
-
                <a href="/match/encontrar" class="sidebar-link">
                   <i class="fa-solid fa-users"></i>
                   <span>Match</span>
                </a>
-
                <a href="/trocas" class="sidebar-link">
                   <i class="fa-solid fa-right-left"></i>
                   <span>Trocas</span>
                </a>
-
                <a href="/mensagens" class="sidebar-link">
                   <i class="fa-solid fa-message"></i>
                   <span>Mensagens</span>
-               </a>
-
             </nav>
-
             <!-- ADMIN -->
-
             <div class="sidebar-section mt-4">
                ADMIN
             </div>
-
             <nav class="sidebar-nav">
-
-               <a href="/admin/albuns" class="sidebar-link">
+               <a asp-controller="Album" asp-action="Index" class="sidebar-link">
                   <i class="fa-solid fa-book-open"></i>
                   <span>Álbuns</span>
                </a>
-
                <a href="/admin/paginas" class="sidebar-link">
                   <i class="fa-solid fa-file-lines"></i>
                   <span>Páginas</span>
                </a>
-
                <a href="/admin/figurinhas" class="sidebar-link">
                   <i class="fa-solid fa-images"></i>
                   <span>Figurinhas</span>
                </a>
-
                <a href="/admin/selecoes" class="sidebar-link">
                   <i class="fa-solid fa-flag"></i>
                   <span>Seleções</span>
                </a>
-
             </nav>
-
          </div>
-
          <!-- FOOTER -->
-
          <div class="sidebar-footer">
-
             <a href="/configuracoes" class="sidebar-link">
                <i class="fa-solid fa-gear"></i>
                <span>Configurações</span>
             </a>
-
             <a href="/sair" class="sidebar-link text-danger">
                <i class="fa-solid fa-arrow-right-from-bracket"></i>
                <span>Sair</span>
             </a>
-
          </div>
-
       </aside>
-
       <!-- OVERLAY -->
-
       <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
       <!-- CONTENT -->
-
       <div class="dashboard-content">
-
          <!-- TOPBAR -->
-
          <header class="topbar">
-
             <div class="d-flex align-items-center gap-3">
-
                <button class="mobile-menu-btn" id="mobileMenuBtn">
                   <i class="fa-solid fa-bars"></i>
                </button>
-
                <div>
-
                   <h1 class="page-title">
                      @ViewData["PageTitle"]
                   </h1>
-
                   <span class="page-subtitle">
                      @ViewData["PageSubTitle"]
                   </span>
-
                </div>
-
             </div>
-
             <div class="topbar-actions">
-
                <button class="icon-button">
                   <i class="fa-solid fa-bell"></i>
                </button>
-
                <button class="icon-button">
                   <i class="fa-solid fa-envelope"></i>
                </button>
-
                <div class="profile-area">
-
                   <div class="profile-avatar">
                      R
                   </div>
-
                   <div>
-
                      <div class="profile-name">
                         Rafael
                      </div>
-
                      <div class="profile-role">
                         Administrador
                      </div>
-
                   </div>
-
                </div>
-
             </div>
-
          </header>
 
          <!-- MAIN -->
 
          <main class="main-content">
-
             @RenderBody()
-
          </main>
-
       </div>
-
    </div>
 
    <script src="~/lib/jquery/dist/jquery.min.js"></script>

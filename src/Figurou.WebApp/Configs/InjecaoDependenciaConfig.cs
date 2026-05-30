@@ -14,10 +14,13 @@ namespace Figurou.WebApp.Configs
             services.AddScoped<AppDbContext>();
 
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IAlbumRepository, AlbumRepository>();
 
             services.AddScoped<INotificador, Notificador>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IAlbumService, AlbumService>();
+            services.AddScoped<IArquivoService, ArquivoService>();
 
             return services;
         }

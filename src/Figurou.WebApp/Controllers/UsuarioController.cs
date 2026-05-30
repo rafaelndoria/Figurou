@@ -1,6 +1,7 @@
-﻿using Figurou.Business.Interfaces;
+﻿using Figurou.Business.DTOs;
+using Figurou.Business.Interfaces;
 using Figurou.Business.Services.Interfaces;
-using Figurou.WebApp.InputModel;
+using Figurou.WebApp.InputModels;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,7 +35,8 @@ namespace Figurou.WebApp.Controllers
             if (!ModelState.IsValid)
                 return View(registroUsuario);
 
-            var usuario = await _usuarioService.Cadastrar(registroUsuario);
+            var cadastrarUsuarioDTO = new CadastrarUsuarioDTO(registroUsuario.Username, registroUsuario.Email, registroUsuario.Senha);
+            var usuario = await _usuarioService.Cadastrar(cadastrarUsuarioDTO);
 
             if (!OperacaoValida())
                 return View(registroUsuario);
@@ -72,7 +74,8 @@ namespace Figurou.WebApp.Controllers
             if (!ModelState.IsValid)
                 return View(loginUsuario);
 
-            var usuario = await _usuarioService.Login(loginUsuario);
+            var loginUsuarioDTO = new LoginUsuarioDTO(loginUsuario.Username, loginUsuario.Senha);
+            var usuario = await _usuarioService.Login(loginUsuarioDTO);
 
             if (!OperacaoValida())
                 return View(loginUsuario);

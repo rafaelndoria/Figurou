@@ -1,11 +1,11 @@
-﻿using Figurou.Business.Models;
-using Figurou.WebApp.InputModel;
+﻿using Figurou.Business.DTOs;
+using Figurou.Business.Models;
 
 namespace Figurou.Business.Services.Interfaces
 {
     public interface IUsuarioService
     {
-        Task<Usuario?> Cadastrar(RegistroUsuarioInputModel registroUsuario);
-        Task<Usuario?> Login(LoginUsuarioInputModel loginUsuario);
+        Task<Usuario?> Cadastrar(CadastrarUsuarioDTO registroUsuario);
+        Task<Usuario?> Login(LoginUsuarioDTO loginUsuario);
     }
 }

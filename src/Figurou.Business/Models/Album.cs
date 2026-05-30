@@ -2,7 +2,7 @@
 {
     public class Album : Entidade
     {
-        protected Album() { }
+        public Album() { }
 
         public Album(
             string nome,

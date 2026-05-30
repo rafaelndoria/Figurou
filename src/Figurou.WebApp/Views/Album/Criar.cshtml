@@ -1,0 +1,318 @@
+﻿@model CadastroAlbumInputModel
+@{
+   ViewData["Title"] = "Cadastrar Álbum";
+   ViewData["PageTitle"] = "Cadastrar Álbum";
+   ViewData["PageSubTitle"] = "Adicione um novo álbum ao sistema.";
+}
+
+<div class="album-form-container">
+
+   <div class="content-card">
+
+      <div class="content-card-header">
+
+         <h2>
+            Informações do Álbum
+         </h2>
+
+      </div>
+
+      <form asp-action="Criar"
+            asp-controller="Album"
+            method="post"
+            enctype="multipart/form-data">
+
+         <div class="row g-4">
+
+            <div class="col-md-6">
+
+               <div class="form-group">
+
+                  <label asp-for="Nome" class="form-label"></label>
+
+                  <input asp-for="Nome" class="form-control custom-input" />
+
+                  <span asp-validation-for="Nome" class="text-danger"></span>
+
+               </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+               <div class="form-group">
+
+                  <label asp-for="Ano" class="form-label"></label>
+
+                  <input asp-for="Ano" class="form-control custom-input" />
+
+                  <span asp-validation-for="Ano" class="text-danger"></span>
+
+               </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+               <div class="form-group">
+
+                  <label asp-for="TotalFigurinhas" class="form-label"></label>
+
+                  <input asp-for="TotalFigurinhas" class="form-control custom-input" />
+
+                  <span asp-validation-for="TotalFigurinhas" class="text-danger"></span>
+
+               </div>
+
+            </div>
+
+            <div class="col-12">
+
+               <div class="form-group">
+
+                  <label asp-for="Descricao" class="form-label"></label>
+
+                  <textarea asp-for="Descricao"
+                            rows="5"
+                            class="form-control custom-input custom-textarea"></textarea>
+
+                  <span asp-validation-for="Descricao" class="text-danger"></span>
+
+               </div>
+
+            </div>
+
+            <div class="col-12">
+
+               <div class="form-group">
+
+                  <label asp-for="ImagemCapa" class="form-label">
+                     Capa do Álbum
+                  </label>
+
+                  <input asp-for="ImagemCapa"
+                         type="file"
+                         accept="image/*"
+                         class="form-control custom-file-input"
+                         id="ImagemCapa" />
+
+                  <span asp-validation-for="ImagemCapa" class="text-danger"></span>
+
+               </div>
+
+            </div>
+
+            <div class="col-12">
+
+               <div class="preview-area">
+
+                  <img id="previewImage"
+                       src="https://placehold.co/500x280?text=Capa+do+Album"
+                       alt="Preview" />
+
+               </div>
+
+            </div>
+
+         </div>
+
+         <div class="form-actions">
+
+            <a asp-controller="Album" asp-action="Index" class="btn-cancel">
+               Cancelar
+            </a>
+
+            <button type="submit" class="btn-save">
+               <i class="fa-solid fa-floppy-disk"></i>
+               Salvar Álbum
+            </button>
+
+         </div>
+
+      </form>
+
+   </div>
+
+</div>
+
+@section Scripts {
+
+   <partial name="_ValidationScriptsPartial" />
+
+   <script>
+
+      const imageInput = document.getElementById('ImagemCapa');
+      const previewImage = document.getElementById('previewImage');
+
+      imageInput.addEventListener('change', function () {
+
+         const file = this.files[0];
+
+         if (file) {
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+
+               previewImage.src = e.target.result;
+
+            };
+
+            reader.readAsDataURL(file);
+
+         }
+
+      });
+
+   </script>
+
+}
+
+<style>
+
+   .album-form-container {
+      max-width: 1200px;
+      margin: auto;
+   }
+
+   .form-group {
+      display: flex;
+      flex-direction: column;
+   }
+
+   .form-label {
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #e2e8f0;
+   }
+
+   .custom-input {
+      height: 56px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: #fff;
+      padding: 0 18px;
+      transition: .2s;
+   }
+
+      .custom-input:focus {
+         background: rgba(255,255,255,0.06);
+         border-color: #7c3aed;
+         box-shadow: none;
+         color: #fff;
+      }
+
+      .custom-input::placeholder {
+         color: #64748b;
+      }
+
+   .custom-textarea {
+      min-height: 140px;
+      padding-top: 16px;
+      resize: none;
+   }
+
+   .custom-file-input {
+      height: 56px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+      color: #cbd5e1;
+      padding: 12px 18px;
+   }
+
+      .custom-file-input::file-selector-button {
+         border: none;
+         background: linear-gradient(135deg, #7c3aed, #2563eb);
+         color: #fff;
+         padding: 10px 18px;
+         border-radius: 12px;
+         margin-right: 15px;
+         cursor: pointer;
+      }
+
+   .preview-area {
+      width: 100%;
+      height: 320px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.04);
+   }
+
+      .preview-area img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+      }
+
+   .form-actions {
+      margin-top: 35px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+   }
+
+   .btn-save {
+      height: 56px;
+      padding: 0 26px;
+      border: none;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      color: #fff;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: .2s;
+      box-shadow: 0 0 25px rgba(124,58,237,.35);
+   }
+
+      .btn-save:hover {
+         transform: translateY(-2px);
+      }
+
+   .btn-cancel {
+      height: 56px;
+      padding: 0 26px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #cbd5e1;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      transition: .2s;
+   }
+
+      .btn-cancel:hover {
+         background: rgba(255,255,255,0.08);
+         color: #fff;
+      }
+
+   .text-danger {
+      margin-top: 8px;
+      font-size: 14px;
+   }
+
+   @@media(max - width:768px) {
+      .form-actions
+
+   {
+      flex-direction: column;
+   }
+
+   .btn-save,
+   .btn-cancel {
+      width: 100%;
+      justify-content: center;
+   }
+
+   .preview-area {
+      height: 220px;
+   }
+
+   }
+</style>

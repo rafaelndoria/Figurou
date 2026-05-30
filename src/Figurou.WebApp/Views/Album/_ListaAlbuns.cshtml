@@ -1,0 +1,200 @@
+﻿@model IEnumerable<AlbumViewModel>
+
+<div class="albums-grid">
+
+   @foreach (var album in Model)
+   {
+      <div class="album-card">
+
+         <div class="album-image">
+
+            <img src="@album.Capa" alt="@album.Descricao" />
+
+         </div>
+
+         <div class="album-content">
+
+            <div class="album-description">
+               @album.Descricao - @album.Ano
+            </div>
+
+            <div class="album-actions">
+
+               <div class="album-actions-top">
+
+                  <a asp-controller="Album" asp-action="Editar" asp-route-id="@album.Id" class="btn-action btn-edit">
+                     <i class="fa-solid fa-pen"></i>
+                     Editar
+                  </a>
+
+                  @if (album.Ativo)
+                  {
+                     <a asp-controller="Album"
+                        asp-action="AlterarStatus"
+                        asp-route-id="@album.Id"
+                        class="btn-action btn-inactivate">
+
+                        <i class="fa-solid fa-trash"></i>
+                        Inativar
+                     </a>
+                  }
+                  else
+                  {
+                     <a asp-controller="Album"
+                        asp-action="AlterarStatus"
+                        asp-route-id="@album.Id"
+                        class="btn-action btn-activate">
+
+                        <i class="fa-solid fa-check"></i>
+                        Ativar
+                     </a>
+                  }
+                  
+               </div>
+
+               <a href="/admin/albuns/paginas/@album.Id" class="btn-action btn-pages">
+                  <i class="fa-solid fa-book-open"></i>
+                  Páginas
+               </a>
+
+            </div>
+
+         </div>
+
+      </div>
+   }
+
+</div>
+
+<style>
+   .btn-activate {
+      background: rgba(34,197,94,.15);
+      color: #4ade80;
+   }
+
+   .btn-activate:hover {
+      background: rgba(34,197,94,.25);
+      color: #86efac;
+   }
+
+   .btn-inactivate {
+      background: rgba(239,68,68,.12);
+      color: #f87171;
+   }
+
+   .btn-inactivate:hover {
+      background: rgba(239,68,68,.2);
+      color: #fca5a5;
+   }
+
+   .albums-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(320px,1fr));
+      gap: 24px;
+   }
+
+   .album-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 24px;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+      transition: .25s;
+   }
+
+      .album-card:hover {
+         transform: translateY(-4px);
+         border-color: rgba(124,58,237,.45);
+      }
+
+   .album-image {
+      width: 100%;
+      height: 240px;
+      overflow: hidden;
+   }
+
+      .album-image img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+      }
+
+   .album-content {
+      padding: 22px;
+   }
+
+   .album-description {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #fff;
+   }
+
+   .album-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+   }
+
+   .album-actions-top {
+      display: flex;
+      gap: 12px;
+   }
+
+   .btn-action {
+      flex: 1;
+      border: none;
+      padding: 12px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: .2s;
+   }
+
+   .btn-edit {
+      background: rgba(37,99,235,.15);
+      color: #60a5fa;
+   }
+
+      .btn-edit:hover {
+         background: rgba(37,99,235,.25);
+         color: #93c5fd;
+      }
+
+   .btn-delete {
+      background: rgba(239,68,68,.12);
+      color: #f87171;
+   }
+
+      .btn-delete:hover {
+         background: rgba(239,68,68,.2);
+         color: #fca5a5;
+      }
+
+   .btn-pages {
+      width: 100%;
+      background: rgba(124,58,237,.15);
+      color: #c4b5fd;
+   }
+
+      .btn-pages:hover {
+         background: rgba(124,58,237,.25);
+         color: #ddd6fe;
+      }
+
+   @@media(max-width:768px) {
+
+      .albums-grid {
+         grid-template-columns: 1fr;
+      }
+
+      .album-actions-top {
+         flex-direction: column;
+      }
+   }
+
+</style>

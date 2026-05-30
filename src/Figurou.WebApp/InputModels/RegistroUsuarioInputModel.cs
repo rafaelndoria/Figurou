@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Figurou.WebApp.InputModel
+namespace Figurou.WebApp.InputModels
 {
     public class RegistroUsuarioInputModel
     {
