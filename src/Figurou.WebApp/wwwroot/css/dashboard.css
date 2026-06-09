@@ -518,6 +518,78 @@ body {
    }
 }
 
+.popup-notification {
+   position: fixed;
+   top: 20px;
+   right: 20px;
+   width: 320px;
+   max-height: 80vh;
+   overflow-y: auto;
+   background: rgba(0,0,0,0.85);
+   color: #fff;
+   border-radius: 12px;
+   box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+   z-index: 1050;
+   font-family: 'Inter', sans-serif;
+   animation: fadeIn 0.4s ease;
+}
+
+.popup-content {
+   padding: 16px 20px;
+}
+
+.popup-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 12px;
+}
+
+   .popup-header h4 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+   }
+
+.close-btn {
+   background: none;
+   border: none;
+   color: #fff;
+   font-size: 18px;
+   cursor: pointer;
+}
+
+.popup-body ul {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+}
+
+.popup-body li {
+   margin-bottom: 8px;
+   font-size: 14px;
+}
+
+.popup-error {
+   color: #f87171;
+}
+
+.popup-success {
+   color: #22c55e;
+}
+
+@keyframes fadeIn {
+   from {
+      opacity: 0;
+      transform: translateY(-20px);
+   }
+
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+
 /* CELULAR PEQUENO */
 
 @media (max-width: 480px) {

@@ -46,9 +46,9 @@ namespace Figurou.Data.Repositories
             await SalvarAlteracoesAsync();
         }
 
-        public async Task RemoverAsync(Guid id)
+        public async Task RemoverAsync(TEntity entidade)
         {
-            DbSet.Remove(new TEntity { Id = id });
+            DbSet.Remove(entidade);
             await SalvarAlteracoesAsync();
         }
 

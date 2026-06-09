@@ -2,18 +2,20 @@
 {
     public class PaginaAlbum : Entidade
     {
-        protected PaginaAlbum() { }
+        public PaginaAlbum() { }
 
         public PaginaAlbum(
             int numeroPagina,
             string imagemPagina,
             decimal largura,
-            decimal altura)
+            decimal altura,
+            Guid albumId)
         {
             NumeroPagina = numeroPagina;
             ImagemPagina = imagemPagina;
             Largura = largura;
             Altura = altura;
+            AlbumId = albumId;
 
             Figurinhas = new List<Figurinha>();
             SlotsPaginaAlbum = new List<SlotPaginaAlbum>();

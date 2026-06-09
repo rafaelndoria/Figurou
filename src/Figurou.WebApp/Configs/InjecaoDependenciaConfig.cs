@@ -15,12 +15,14 @@ namespace Figurou.WebApp.Configs
 
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IAlbumRepository, AlbumRepository>();
+            services.AddScoped<IPaginaAlbumRepository, PaginaAlbumRepository>();
 
             services.AddScoped<INotificador, Notificador>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IAlbumService, AlbumService>();
             services.AddScoped<IArquivoService, ArquivoService>();
+            services.AddScoped<IPaginaAlbumService, PaginaAlbumService>();
 
             return services;
         }

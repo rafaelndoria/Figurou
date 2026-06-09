@@ -1,0 +1,214 @@
+﻿@model IEnumerable<PaginaAlbumItemViewModel>
+@if (!Model.Any())
+{
+   <div class="empty-pages">
+
+      <i class="fa-regular fa-images"></i>
+
+      <h3>Nenhuma página cadastrada</h3>
+
+      <p>
+         Este álbum ainda não possui páginas cadastradas.
+      </p>
+
+   </div>
+}
+else
+{
+   <div class="pages-grid">
+
+      @foreach (var pagina in Model)
+      {
+         <div class="page-card">
+
+            <div class="page-image">
+
+               <img src="@pagina.ImagemPagina"
+                    alt="Página @pagina.NumeroPagina" />
+
+            </div>
+
+            <div class="page-content">
+
+               <div class="page-description">
+                  Página @pagina.NumeroPagina
+               </div>
+
+               <div class="page-actions">
+
+                  <div class="page-actions-top">
+
+                     <a asp-controller="Pagina"
+                        asp-action="Editar"
+                        asp-route-id="@pagina.Id"
+                        asp-route-albumId="@pagina.AlbumId"
+                        class="btn-action btn-edit">
+
+                        <i class="fa-solid fa-pen"></i>
+                        Editar
+
+                     </a>
+
+                     <a asp-controller="Pagina"
+                        asp-action="Excluir"
+                        asp-route-id="@pagina.Id"
+                        asp-route-albumId="@pagina.AlbumId"
+                        class="btn-action btn-delete">
+
+                        <i class="fa-solid fa-trash"></i>
+                        Excluir
+
+                     </a>
+
+                  </div>
+
+                  <a asp-controller="Figurinha"
+                     asp-action="Index"
+                     asp-route-paginaId="@pagina.Id"
+                     class="btn-action btn-stickers">
+
+                     <i class="fa-solid fa-table-cells-large"></i>
+                     Figurinhas
+
+                  </a>
+
+               </div>
+
+            </div>
+
+         </div>
+      }
+
+   </div>
+}
+
+<style>
+
+   .pages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(320px,1fr));
+      gap: 24px;
+   }
+
+   .page-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 24px;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+      transition: .25s;
+   }
+
+      .page-card:hover {
+         transform: translateY(-4px);
+         border-color: rgba(124,58,237,.45);
+      }
+
+   .page-image {
+      width: 100%;
+      height: 340px;
+      overflow: hidden;
+      background: rgba(255,255,255,.03);
+   }
+
+      .page-image img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         display: block;
+      }
+
+   .page-content {
+      padding: 22px;
+   }
+
+   .page-description {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #fff;
+   }
+
+   .page-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+   }
+
+   .page-actions-top {
+      display: flex;
+      gap: 12px;
+   }
+
+   .btn-action {
+      flex: 1;
+      border: none;
+      padding: 12px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: .2s;
+   }
+
+   .btn-edit {
+      background: rgba(37,99,235,.15);
+      color: #60a5fa;
+   }
+
+      .btn-edit:hover {
+         background: rgba(37,99,235,.25);
+         color: #93c5fd;
+      }
+
+   .btn-delete {
+      background: rgba(239,68,68,.12);
+      color: #f87171;
+   }
+
+      .btn-delete:hover {
+         background: rgba(239,68,68,.2);
+         color: #fca5a5;
+      }
+
+   .btn-stickers {
+      width: 100%;
+      background: rgba(124,58,237,.15);
+      color: #c4b5fd;
+   }
+
+      .btn-stickers:hover {
+         background: rgba(124,58,237,.25);
+         color: #ddd6fe;
+      }
+
+   .empty-pages {
+      width: 100%;
+      min-height: 320px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      text-align: center;
+      padding: 40px;
+   }
+
+   @@media(max-width:768px) {
+
+      .pages-grid {
+         grid-template-columns: 1fr;
+      }
+
+      .page-actions-top {
+         flex-direction: column;
+      }
+   }
+
+</style>

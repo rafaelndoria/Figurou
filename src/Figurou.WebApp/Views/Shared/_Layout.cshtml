@@ -63,10 +63,6 @@
                   <i class="fa-solid fa-book-open"></i>
                   <span>Álbuns</span>
                </a>
-               <a href="/admin/paginas" class="sidebar-link">
-                  <i class="fa-solid fa-file-lines"></i>
-                  <span>Páginas</span>
-               </a>
                <a href="/admin/figurinhas" class="sidebar-link">
                   <i class="fa-solid fa-images"></i>
                   <span>Figurinhas</span>
@@ -132,10 +128,31 @@
          </header>
 
          <!-- MAIN -->
-
          <main class="main-content">
             @RenderBody()
          </main>
+
+         <!-- POPUP UNIVERSAL DE NOTIFICAÇÃO -->
+         <div id="globalPopup" class="popup-notification" style="display:none;">
+            <div class="popup-content">
+               <div class="popup-header">
+                  <h4>Notificações</h4>
+                  <button type="button" class="close-btn" onclick="closePopup()">×</button>
+               </div>
+               <div class="popup-body">
+                  <ul id="popup-messages">
+                     @if (!string.IsNullOrEmpty(ViewBag.Sucesso))
+                     {
+                        <li class="popup-success">@ViewBag.Sucesso</li>
+                     }
+                     @foreach (var item in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                     {
+                        <li class="popup-error">@item.ErrorMessage</li>
+                     }
+                  </ul>
+               </div>
+            </div>
+         </div>
       </div>
    </div>
 
@@ -163,6 +180,26 @@
 
       });
 
+   </script>
+
+   <script>
+      function closePopup() {
+         document.getElementById('globalPopup').style.display = 'none';
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+         const popup = document.getElementById('globalPopup');
+         const hasErrors = document.querySelectorAll('.popup-error').length > 0;
+         const hasSuccess = document.querySelectorAll('.popup-success').length > 0;
+
+         if(hasErrors || hasSuccess) {
+            popup.style.display = 'block';
+            // Fecha automaticamente após 7 segundos
+            setTimeout(() => {
+               popup.style.display = 'none';
+            }, 7000);
+         }
+      });
    </script>
 
    @await RenderSectionAsync("Scripts", required: false)

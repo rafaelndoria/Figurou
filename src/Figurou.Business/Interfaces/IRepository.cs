@@ -10,7 +10,7 @@ namespace Figurou.Business.Interfaces
         Task<TEntity> ObterPorIdAsync(Guid id);
         Task<List<TEntity>> ObterTodosAsync();
         Task AtualizarAsync(TEntity entidade);
-        Task RemoverAsync(Guid id);
+        Task RemoverAsync(TEntity entidade);
         Task<IEnumerable<TEntity>> BuscarAsync(Expression<Func<TEntity, bool>> predicate);
         Task<int> SalvarAlteracoesAsync();
     }

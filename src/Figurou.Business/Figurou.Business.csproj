@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Services\Implementations\PaginaAlbumService.cs~RF1acf5b39.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="12.1.1" />
     <PackageReference Include="Microsoft.Extensions.Features" Version="8.0.27" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />

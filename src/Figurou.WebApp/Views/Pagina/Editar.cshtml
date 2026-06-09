@@ -1,0 +1,351 @@
+﻿@model AtualizarPaginaAlbumInputModel
+@{
+   ViewData["Title"] = "Editar Página";
+   ViewData["PageTitle"] = "Editar Página do Álbum";
+   ViewData["PageSubTitle"] = "Atualize as informações da página do álbum.";
+}
+
+<div class="page-header">
+
+   <div>
+
+      <h1 class="page-title">
+         @ViewData["PageTitle"]
+      </h1>
+
+      <p class="page-subtitle">
+         @ViewData["PageSubTitle"]
+      </p>
+
+   </div>
+
+   <a asp-controller="Pagina"
+      asp-action="Index"
+      asp-route-albumId="@Model.AlbumId"
+      class="btn-back">
+
+      <i class="fa-solid fa-arrow-left"></i>
+      Voltar
+
+   </a>
+
+</div>
+
+<form asp-controller="Pagina"
+      asp-action="Editar"
+      method="post"
+      enctype="multipart/form-data"
+      class="album-form">
+
+   <input asp-for="Id" type="hidden" />
+   <input asp-for="AlbumId" type="hidden" />
+   <input asp-for="ImagemPagina" type="hidden" />
+
+   <div asp-validation-summary="ModelOnly"
+        class="validation-summary text-danger">
+   </div>
+
+   <div class="form-grid">
+
+      <div class="glass-card">
+
+         <div class="form-group">
+
+            <label asp-for="NumeroPagina">
+               Número da Página
+            </label>
+
+            <input asp-for="NumeroPagina"
+                   type="number"
+                   class="form-input" />
+
+            <span asp-validation-for="NumeroPagina"
+                  class="text-danger">
+            </span>
+
+         </div>
+
+         <div class="form-group">
+
+            <label asp-for="Largura">
+               Largura
+            </label>
+
+            <input asp-for="Largura"
+                   type="number"
+                   step="0.01"
+                   class="form-input" />
+
+            <span asp-validation-for="Largura"
+                  class="text-danger">
+            </span>
+
+         </div>
+
+         <div class="form-group">
+
+            <label asp-for="Altura">
+               Altura
+            </label>
+
+            <input asp-for="Altura"
+                   type="number"
+                   step="0.01"
+                   class="form-input" />
+
+            <span asp-validation-for="Altura"
+                  class="text-danger">
+            </span>
+
+         </div>
+
+         <div class="form-group">
+
+            <label asp-for="NovaImagem">
+               Nova Imagem da Página (Opcional)
+            </label>
+
+            <input asp-for="NovaImagem"
+                   type="file"
+                   accept="image/*"
+                   class="form-input"
+                   onchange="previewImage(this)" />
+
+            <small class="helper-text">
+               Caso nenhuma imagem seja selecionada, a imagem atual será mantida.
+            </small>
+
+            <span asp-validation-for="NovaImagem"
+                  class="text-danger">
+            </span>
+
+         </div>
+
+      </div>
+
+      <div class="glass-card">
+
+         <label class="cover-label">
+            Pré-visualização da Página
+         </label>
+
+         <div class="cover-preview">
+
+            <img id="preview-image"
+                 src="@Model.ImagemPagina"
+                 alt="Imagem da página" />
+
+         </div>
+
+      </div>
+
+   </div>
+
+   <div class="form-actions">
+
+      <button type="submit"
+              class="btn-save">
+
+         <i class="fa-solid fa-floppy-disk"></i>
+         Salvar Alterações
+
+      </button>
+
+   </div>
+
+</form>
+
+@section Scripts {
+
+   <partial name="_ValidationScriptsPartial" />
+
+   <script>
+
+      function previewImage(input) {
+
+          if (!input.files || !input.files[0])
+              return;
+
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+
+              document.getElementById('preview-image').src = e.target.result;
+
+          };
+
+          reader.readAsDataURL(input.files[0]);
+
+      }
+
+   </script>
+
+}
+
+<style>
+
+   .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      gap: 20px;
+   }
+
+   .page-title {
+      color: #fff;
+      font-size: 32px;
+      font-weight: 700;
+      margin: 0;
+   }
+
+   .page-subtitle {
+      color: #9ca3af;
+      margin-top: 6px;
+   }
+
+   .btn-back {
+      padding: 12px 18px;
+      border-radius: 14px;
+      text-decoration: none;
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: .2s;
+   }
+
+      .btn-back:hover {
+         background: rgba(255,255,255,.14);
+         color: #fff;
+      }
+
+   .album-form {
+      width: 100%;
+   }
+
+   .validation-summary {
+      margin-bottom: 24px;
+   }
+
+      .validation-summary ul {
+         margin: 0;
+         padding-left: 20px;
+      }
+
+   .form-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+   }
+
+   .glass-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 24px;
+      padding: 24px;
+      backdrop-filter: blur(20px);
+   }
+
+   .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 22px;
+   }
+
+      .form-group label,
+      .cover-label {
+         color: #fff;
+         margin-bottom: 10px;
+         font-weight: 600;
+      }
+
+   .form-input {
+      width: 100%;
+      border: none;
+      outline: none;
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,.06);
+      color: #fff;
+      font-size: 15px;
+      transition: .2s;
+   }
+
+      .form-input:focus {
+         border: 1px solid rgba(124,58,237,.6);
+         background: rgba(255,255,255,.08);
+      }
+
+   .helper-text {
+      margin-top: 8px;
+      color: #9ca3af;
+      font-size: 13px;
+   }
+
+   .cover-preview {
+      width: 100%;
+      height: 420px;
+      border-radius: 22px;
+      overflow: hidden;
+      background: rgba(255,255,255,.04);
+   }
+
+      .cover-preview img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+      }
+
+   .form-actions {
+      margin-top: 28px;
+      display: flex;
+      justify-content: flex-end;
+   }
+
+   .btn-save {
+      border: none;
+      border-radius: 16px;
+      padding: 16px 26px;
+      background: linear-gradient(135deg,#7c3aed,#4f46e5);
+      color: #fff;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: .2s;
+      cursor: pointer;
+   }
+
+      .btn-save:hover {
+         transform: translateY(-2px);
+         opacity: .95;
+      }
+
+   .text-danger {
+      color: #f87171;
+      margin-top: 8px;
+      font-size: 14px;
+   }
+
+   @@media(max-width:992px) {
+
+      .form-grid {
+         grid-template-columns: 1fr;
+      }
+
+      .cover-preview {
+         height: 320px;
+      }
+   }
+
+   @@media(max-width:768px) {
+
+      .page-header {
+         flex-direction: column;
+         align-items: flex-start;
+      }
+   }
+
+</style>
