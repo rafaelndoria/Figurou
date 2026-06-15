@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Figurou.WebApp.Controllers
 {
     [Authorize(Roles = nameof(EUsuarioRole.Admin))]
-    [Route("admin/album/{albumId:Guid}/paginas")]
+    [Route("admin/albuns/{albumId:Guid}/paginas")]
     public class PaginaController : BaseController
     {
         private readonly IPaginaAlbumService _paginaAlbumService;

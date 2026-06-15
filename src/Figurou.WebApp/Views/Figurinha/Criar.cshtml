@@ -1,0 +1,326 @@
+﻿@using Figurou.Business.Enums
+@model CadastroFigurinhaInputModel
+@{
+   ViewData["Title"] = "Nova Figurinha";
+   ViewData["PageTitle"] = "Cadastro de Figurinha";
+   ViewData["PageSubTitle"] = "Adicione uma nova figurinha à página.";
+}
+
+<div class="create-sticker-wrapper">
+
+   <div class="create-sticker-card">
+
+      <div class="create-header">
+
+         <div>
+
+            <h2 class="create-title">
+               @ViewData["PageTitle"]
+            </h2>
+
+            <p class="create-description">
+               @ViewData["PageSubTitle"]
+            </p>
+
+         </div>
+
+         <a asp-controller="Figurinha"
+            asp-action="Index"
+            asp-route-albumId="@Model.AlbumId"
+            asp-route-paginaId="@Model.PaginaId"
+            class="btn-back">
+
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+
+         </a>
+
+      </div>
+
+      <form asp-controller="Figurinha" asp-action="Criar" method="post">
+
+         <input type="hidden" asp-for="AlbumId" />
+         <input type="hidden" asp-for="PaginaId" />
+
+         <div asp-validation-summary="ModelOnly"
+              class="validation-summary-errors">
+         </div>
+
+         <div class="form-grid">
+
+            <div class="form-group">
+
+               <label asp-for="Codigo"></label>
+
+               <input asp-for="Codigo"
+                      class="form-input"
+                      placeholder="Ex: BRA 01" />
+
+               <span asp-validation-for="Codigo"
+                     class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+
+               <label asp-for="Numero"></label>
+
+               <input asp-for="Numero"
+                      type="number"
+                      min="1"
+                      class="form-input"
+                      placeholder="Ex: 1" />
+
+               <span asp-validation-for="Numero"
+                     class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group form-group-full">
+
+               <label asp-for="NomeJogador"></label>
+
+               <input asp-for="NomeJogador"
+                      class="form-input"
+                      placeholder="Ex: Neymar Jr" />
+
+               <span asp-validation-for="NomeJogador"
+                     class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group form-group-full">
+
+               <label asp-for="Raridade"></label>
+
+               <select asp-for="Raridade"
+                       class="form-input"
+                       asp-items="Html.GetEnumSelectList<ETipoRaridade>()">
+               </select>
+
+               <span asp-validation-for="Raridade"
+                     class="text-danger"></span>
+
+            </div>
+
+         </div>
+
+         <div class="rarity-preview">
+
+            <div class="rarity-card comum">
+               Comum
+            </div>
+
+            <div class="rarity-card brilhante">
+               Brilhante
+            </div>
+
+            <div class="rarity-card rara">
+               Rara
+            </div>
+
+            <div class="rarity-card lendaria">
+               Lendária
+            </div>
+
+         </div>
+
+         <div class="form-actions">
+
+            <button type="submit" class="btn-save">
+
+               <i class="fa-solid fa-floppy-disk"></i>
+
+               Salvar Figurinha
+
+            </button>
+
+         </div>
+
+      </form>
+
+   </div>
+
+</div>
+
+@section Scripts {
+   <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+
+   .create-sticker-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 28px;
+      padding: 32px;
+      backdrop-filter: blur(18px);
+   }
+
+   .create-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 35px;
+   }
+
+   .create-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 8px;
+   }
+
+   .create-description {
+      color: #94a3b8;
+      margin: 0;
+   }
+
+   .btn-back {
+      height: 52px;
+      padding: 0 22px;
+      border-radius: 16px;
+      text-decoration: none;
+      background: rgba(255,255,255,.06);
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+   }
+
+   .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 24px;
+   }
+
+   .form-group {
+      display: flex;
+      flex-direction: column;
+   }
+
+   .form-group-full {
+      grid-column: span 2;
+   }
+
+   .form-group label {
+      color: white;
+      font-weight: 600;
+      margin-bottom: 10px;
+   }
+
+   .form-input {
+      height: 54px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+      color: white;
+      padding: 0 18px;
+      outline: none;
+   }
+
+      .form-input:focus {
+         border-color: #7c3aed;
+         box-shadow: 0 0 0 4px rgba(124,58,237,.15);
+      }
+
+   select.form-input {
+      cursor: pointer;
+   }
+
+   option {
+      color: black;
+   }
+
+   .rarity-preview {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+   }
+
+   .rarity-card {
+      padding: 12px 18px;
+      border-radius: 14px;
+      color: white;
+      font-weight: 600;
+   }
+
+   .comum {
+      border: 2px solid white;
+   }
+
+   .brilhante {
+      border: 2px solid #3b82f6;
+      box-shadow: 0 0 10px rgba(59,130,246,.4);
+   }
+
+   .rara {
+      border: 2px solid gold;
+      box-shadow: 0 0 10px rgba(255,215,0,.4);
+   }
+
+   .lendaria {
+      border: 2px solid #a855f7;
+      box-shadow: 0 0 12px rgba(168,85,247,.5);
+   }
+
+   .form-actions {
+      margin-top: 35px;
+      display: flex;
+      justify-content: flex-end;
+   }
+
+   .btn-save {
+      height: 56px;
+      padding: 0 28px;
+      border: none;
+      border-radius: 18px;
+      background: linear-gradient(135deg,#7c3aed,#2563eb);
+      color: white;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 0 24px rgba(124,58,237,.35);
+   }
+
+   .text-danger {
+      margin-top: 8px;
+      color: #f87171;
+      font-size: 14px;
+   }
+
+   .validation-summary-errors {
+      margin-bottom: 20px;
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(239,68,68,.12);
+      border: 1px solid rgba(239,68,68,.25);
+      color: #fca5a5;
+   }
+
+   @@media(max-width:768px) {
+
+      .form-grid {
+         grid-template-columns: 1fr;
+      }
+
+      .form-group-full {
+         grid-column: span 1;
+      }
+
+      .create-header {
+         flex-direction: column;
+         align-items: stretch;
+      }
+
+      .btn-back,
+      .btn-save {
+         width: 100%;
+         justify-content: center;
+      }
+   }
+
+</style>

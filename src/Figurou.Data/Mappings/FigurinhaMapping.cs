@@ -26,6 +26,10 @@ namespace Figurou.Data.Mapping
                 .HasMaxLength(20)
                 .IsRequired();
 
+            builder.Property(x => x.NomeJogador)
+                .HasMaxLength(50)
+                .IsRequired(false);
+
             builder.HasOne(x => x.Album)
                 .WithMany(x => x.Figurinhas)
                 .HasForeignKey(x => x.AlbumId)
@@ -39,6 +43,7 @@ namespace Figurou.Data.Mapping
             builder.HasIndex(x => new
             {
                 x.AlbumId,
+                x.PaginaAlbumId,
                 x.Codigo
             })
             .IsUnique();
@@ -46,6 +51,7 @@ namespace Figurou.Data.Mapping
             builder.HasIndex(x => new
             {
                 x.AlbumId,
+                x.PaginaAlbumId,
                 x.Numero
             })
             .IsUnique();

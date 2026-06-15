@@ -16,6 +16,7 @@ namespace Figurou.WebApp.Configs
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IAlbumRepository, AlbumRepository>();
             services.AddScoped<IPaginaAlbumRepository, PaginaAlbumRepository>();
+            services.AddScoped<IFigurinhaRepository, FigurinhaRepository>();
 
             services.AddScoped<INotificador, Notificador>();
             services.AddScoped<IAuthService, AuthService>();
@@ -23,6 +24,7 @@ namespace Figurou.WebApp.Configs
             services.AddScoped<IAlbumService, AlbumService>();
             services.AddScoped<IArquivoService, ArquivoService>();
             services.AddScoped<IPaginaAlbumService, PaginaAlbumService>();
+            services.AddScoped<IFigurinhaService, FigurinhaService>();
 
             return services;
         }

@@ -1,0 +1,166 @@
+﻿@model FigurinhaViewModel
+@{
+   ViewData["Title"] = "Figurinhas";
+   ViewData["PageTitle"] = "Gerenciamento de Figurinhas";
+   ViewData["PageSubTitle"] = "Gerencie as figurinhas da página.";
+}
+
+<div class="stickers-header">
+
+   <div>
+
+      <h2 class="album-name">
+         @Model.NomeAlbum
+      </h2>
+
+      <span class="album-subtitle">
+         Página @Model.NumeroPagina • Total de figurinhas: @(Model.Figurinhas?.Count() ?? 0)
+      </span>
+
+   </div>
+
+   <div class="header-actions">
+
+      <a asp-controller="Pagina"
+         asp-action="Index"
+         asp-route-albumId="@Model.AlbumId"
+         class="btn-back">
+
+         <i class="fa-solid fa-arrow-left"></i>
+         Voltar
+
+      </a>
+
+      <a asp-controller="Figurinha"
+         asp-action="Criar"
+         asp-route-albumId="@Model.AlbumId"
+         asp-route-paginaId="@Model.PaginaId"
+         class="btn-create">
+
+         <i class="fa-solid fa-plus"></i>
+         Nova Figurinha
+
+      </a>
+
+   </div>
+
+</div>
+
+<div class="rarity-legend">
+
+   <div class="rarity-item">
+      <span class="rarity-color comum"></span>
+      Comum
+   </div>
+
+   <div class="rarity-item">
+      <span class="rarity-color brilhante"></span>
+      Brilhante
+   </div>
+
+   <div class="rarity-item">
+      <span class="rarity-color rara"></span>
+      Rara
+   </div>
+
+   <div class="rarity-item">
+      <span class="rarity-color lendaria"></span>
+      Lendária
+   </div>
+
+</div>
+
+<partial name="_ListaFigurinhas"
+         model="Model.Figurinhas ?? Enumerable.Empty<FigurinhaItemViewModel>()" />
+
+<style>
+
+   .stickers-header {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       gap: 20px;
+       margin-bottom: 30px;
+   }
+
+   .album-name {
+       font-size: 32px;
+       font-weight: 700;
+       color: #fff;
+       margin-bottom: 8px;
+   }
+
+   .album-subtitle {
+       color: #94a3b8;
+   }
+
+   .header-actions {
+       display: flex;
+       gap: 12px;
+   }
+
+   .btn-back,
+   .btn-create {
+       height: 56px;
+       padding: 0 24px;
+       border-radius: 18px;
+       text-decoration: none;
+       display: flex;
+       align-items: center;
+       gap: 10px;
+       font-weight: 600;
+   }
+
+   .btn-back {
+       background: rgba(255,255,255,.08);
+       color: white;
+   }
+
+   .btn-create {
+       background: linear-gradient(135deg,#7c3aed,#2563eb);
+       color: white;
+   }
+
+   .rarity-legend {
+       display: flex;
+       gap: 25px;
+       flex-wrap: wrap;
+       margin-bottom: 35px;
+       padding: 18px 22px;
+       border-radius: 18px;
+       background: rgba(255,255,255,.04);
+       border: 1px solid rgba(255,255,255,.06);
+   }
+
+   .rarity-item {
+       display: flex;
+       align-items: center;
+       gap: 10px;
+       color: #fff;
+       font-weight: 600;
+   }
+
+   .rarity-color {
+       width: 18px;
+       height: 18px;
+       border-radius: 50%;
+   }
+
+   .comum {
+       background: white;
+   }
+
+   .brilhante {
+       background: #3b82f6;
+   }
+
+   .rara {
+       background: gold;
+   }
+
+   .lendaria {
+       background: #a855f7;
+       box-shadow: 0 0 15px #a855f7;
+   }
+
+</style>

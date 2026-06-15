@@ -1,0 +1,247 @@
+﻿@using Figurou.Business.Enums
+@model IEnumerable<FigurinhaItemViewModel>
+
+@if (!Model.Any())
+{
+   <div class="empty-stickers">
+
+      <i class="fa-regular fa-image"></i>
+
+      <h3>Nenhuma figurinha cadastrada</h3>
+
+      <p>
+         Esta página ainda não possui figurinhas.
+      </p>
+
+   </div>
+}
+else
+{
+   <div class="stickers-grid">
+
+      @foreach (var figurinha in Model)
+      {
+         var classeRaridade = figurinha.Raridade switch
+         {
+            ETipoRaridade.Comum => "raridade-comum",
+            ETipoRaridade.Brilhante => "raridade-brilhante",
+            ETipoRaridade.Rara => "raridade-rara",
+            ETipoRaridade.Lendaria => "raridade-lendaria",
+            _ => "raridade-comum"
+         };
+
+         <div class="sticker-card @classeRaridade">
+
+            <div class="sticker-frame">
+
+               <span class="sticker-code">
+                  @figurinha.Codigo
+               </span>
+
+            </div>
+
+            <div class="sticker-player">
+               @figurinha.NomeJogador
+            </div>
+
+            <div class="sticker-position">
+               Nº @figurinha.Numero
+            </div>
+
+            <div class="sticker-actions">
+
+               <a asp-action="Editar"
+                  asp-route-id="@figurinha.Id"
+                  asp-route-albumId="@figurinha.AlbumId"
+                  asp-route-paginaId="@figurinha.PaginaId"
+                  class="btn-edit">
+
+                  <i class="fa-solid fa-pen"></i>
+                  Editar
+
+               </a>
+
+               <a asp-action="Excluir"
+                  asp-route-id="@figurinha.Id"
+                  asp-route-albumId="@figurinha.AlbumId"
+                  asp-route-paginaId="@figurinha.PaginaId"
+                  class="btn-delete">
+
+                  <i class="fa-solid fa-trash"></i>
+                  Excluir
+
+               </a>
+
+            </div>
+
+         </div>
+      }
+
+   </div>
+}
+
+<style>
+
+   .stickers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+   }
+
+   .sticker-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.05);
+      border-radius: 24px;
+      padding: 20px;
+      text-align: center;
+      backdrop-filter: blur(15px);
+      transition: .25s;
+   }
+
+      .sticker-card:hover {
+         transform: translateY(-5px);
+      }
+
+   .sticker-frame {
+      height: 260px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      background: rgba(255,255,255,.02);
+      transition: .25s;
+   }
+
+   .sticker-code {
+      color: white;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: 3px;
+   }
+
+   .sticker-player {
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.3;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      padding: 0 8px;
+   }
+
+   .sticker-position {
+      color: #94a3b8;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 18px;
+   }
+
+   .sticker-actions {
+      display: flex;
+      gap: 10px;
+   }
+
+   .btn-edit,
+   .btn-delete {
+      flex: 1;
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 11px;
+      font-weight: 600;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      transition: .2s;
+   }
+
+   .btn-edit {
+      background: rgba(37,99,235,.15);
+      color: #60a5fa;
+   }
+
+      .btn-edit:hover {
+         background: rgba(37,99,235,.25);
+         color: #93c5fd;
+      }
+
+   .btn-delete {
+      background: rgba(239,68,68,.15);
+      color: #f87171;
+   }
+
+      .btn-delete:hover {
+         background: rgba(239,68,68,.25);
+         color: #fca5a5;
+      }
+
+   .raridade-comum .sticker-frame {
+      border: 5px solid #ffffff;
+   }
+
+   .raridade-brilhante .sticker-frame {
+      border: 5px solid #3b82f6;
+      box-shadow: 0 0 15px rgba(59,130,246,.4), inset 0 0 10px rgba(59,130,246,.2);
+   }
+
+   .raridade-rara .sticker-frame {
+      border: 5px solid #facc15;
+      box-shadow: 0 0 18px rgba(250,204,21,.5), inset 0 0 12px rgba(250,204,21,.2);
+   }
+
+   .raridade-lendaria .sticker-frame {
+      border: 5px solid #a855f7;
+      box-shadow: 0 0 12px #a855f7, 0 0 24px #9333ea, 0 0 40px rgba(168,85,247,.4), inset 0 0 15px rgba(168,85,247,.25);
+   }
+
+   .empty-stickers {
+      width: 100%;
+      min-height: 320px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      text-align: center;
+      padding: 40px;
+   }
+
+      .empty-stickers i {
+         font-size: 48px;
+         color: #64748b;
+      }
+
+      .empty-stickers h3 {
+         color: white;
+         margin: 0;
+      }
+
+      .empty-stickers p {
+         color: #94a3b8;
+         margin: 0;
+      }
+
+   @@media (max-width: 768px) {
+
+      .stickers-grid {
+         grid-template-columns: 1fr;
+      }
+
+      .sticker-actions {
+         flex-direction: column;
+      }
+
+      .sticker-frame {
+         height: 220px;
+      }
+   }
+
+</style>
