@@ -29,6 +29,9 @@ namespace Figurou.Data.Mapping
                 .HasPrecision(10, 4)
                 .IsRequired();
 
+            builder.Property(x => x.SelecaoId)
+                .IsRequired(false);
+
             builder.HasIndex(x => x.AlbumId);
 
             builder.HasIndex(x => new
@@ -42,6 +45,11 @@ namespace Figurou.Data.Mapping
                 .WithMany(x => x.Paginas)
                 .HasForeignKey(x => x.AlbumId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(x => x.Selecao)
+                .WithMany(x => x.PaginasAlbum)
+                .HasForeignKey(x => x.SelecaoId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.ToTable("PaginasAlbum");
         }

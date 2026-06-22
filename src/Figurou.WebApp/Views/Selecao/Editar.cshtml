@@ -1,0 +1,53 @@
+﻿@model CadastroSelecaoInputModel
+
+@{
+   ViewData["Title"] = "Editar Seleção";
+   ViewData["PageTitle"] = "Editar Seleção";
+   ViewData["PageSubTitle"] = "Atualize as informações da seleção.";
+}
+
+<link rel="stylesheet" href="~/css/selecao-form.css" />
+
+<div class="create-selection-wrapper">
+
+   <div class="create-selection-card">
+
+      <div class="create-header">
+
+         <div>
+
+            <h2 class="create-title">
+               @ViewData["PageTitle"]
+            </h2>
+
+            <p class="create-description">
+               @ViewData["PageSubTitle"]
+            </p>
+
+         </div>
+
+         <a asp-controller="Selecao"
+            asp-action="Index"
+            asp-route-albumId="@Model.AlbumId"
+            class="btn-back">
+
+            <i class="fa-solid fa-arrow-left"></i>
+            Voltar
+
+         </a>
+
+      </div>
+
+      <form asp-action="Editar" method="post">
+
+         <partial name="_CadastroSelecao" model="Model" />
+
+      </form>
+
+   </div>
+
+</div>
+
+@section Scripts {
+   <partial name="_ValidationScriptsPartial" />
+}

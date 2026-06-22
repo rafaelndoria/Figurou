@@ -17,6 +17,7 @@ namespace Figurou.Data.Repositories
             return await Db.Albuns
                 .AsNoTracking()
                 .Include(x => x.Paginas)
+                .ThenInclude(x => x.Selecao)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
     }

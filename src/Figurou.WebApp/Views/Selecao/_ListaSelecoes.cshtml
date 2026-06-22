@@ -1,0 +1,206 @@
+﻿@model IEnumerable<SelecaoViewModel>
+
+@if (Model == null || !Model.Any())
+{
+   <div class="empty-selections">
+
+      <i class="fa-solid fa-users"></i>
+
+      <h3>Nenhuma seleção cadastrada</h3>
+
+      <p>
+         Este álbum ainda não possui seleções.
+      </p>
+
+   </div>
+}
+else
+{
+   <div class="selections-grid">
+
+      @foreach (var selecao in Model)
+      {
+         <div class="selection-card">
+
+            <div class="selection-icon">
+
+               <i class="fa-solid fa-users"></i>
+
+            </div>
+
+            <div class="selection-code">
+               @selecao.Codigo
+            </div>
+
+            <div class="selection-name">
+               @selecao.Nome
+            </div>
+
+            <div class="selection-actions">
+
+               <a asp-action="Editar"
+                  asp-route-id="@selecao.Id"
+                  asp-route-albumId="@selecao.AlbumId"
+                  class="btn-edit">
+
+                  <i class="fa-solid fa-pen"></i>
+                  Editar
+
+               </a>
+
+               <a asp-action="Excluir"
+                  asp-route-id="@selecao.Id"
+                  asp-route-albumId="@selecao.AlbumId"
+                  class="btn-delete">
+
+                  <i class="fa-solid fa-trash"></i>
+                  Excluir
+
+               </a>
+
+            </div>
+
+         </div>
+      }
+
+   </div>
+}
+
+<style>
+
+   .selections-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+      gap: 24px;
+   }
+
+   .selection-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.05);
+      border-radius: 24px;
+      padding: 24px;
+      backdrop-filter: blur(15px);
+      transition: .25s;
+      text-align: center;
+   }
+
+   .selection-card:hover {
+      transform: translateY(-5px);
+   }
+
+   .selection-icon {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      margin: 0 auto 20px auto;
+      background: linear-gradient(135deg,#7c3aed,#2563eb);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 34px;
+      box-shadow: 0 0 20px rgba(124,58,237,.30);
+   }
+
+   .selection-code {
+      color: #60a5fa;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+   }
+
+   .selection-name {
+      color: white;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      min-height: 65px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      line-height: 1.4;
+   }
+
+   .selection-actions {
+      display: flex;
+      gap: 10px;
+   }
+
+   .btn-edit,
+   .btn-delete {
+      flex: 1;
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 12px;
+      font-weight: 600;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      transition: .2s;
+   }
+
+   .btn-edit {
+      background: rgba(37,99,235,.15);
+      color: #60a5fa;
+   }
+
+   .btn-edit:hover {
+      background: rgba(37,99,235,.25);
+      color: #93c5fd;
+   }
+
+   .btn-delete {
+      background: rgba(239,68,68,.15);
+      color: #f87171;
+   }
+
+   .btn-delete:hover {
+      background: rgba(239,68,68,.25);
+      color: #fca5a5;
+   }
+
+   .empty-selections {
+      width: 100%;
+      min-height: 320px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      text-align: center;
+      padding: 40px;
+   }
+
+   .empty-selections i {
+      font-size: 48px;
+      color: #64748b;
+   }
+
+   .empty-selections h3 {
+      color: white;
+      margin: 0;
+   }
+
+   .empty-selections p {
+      color: #94a3b8;
+      margin: 0;
+   }
+
+   @@media (max-width: 768px) {
+
+      .selections-grid {
+         grid-template-columns: 1fr;
+      }
+
+      .selection-actions {
+         flex-direction: column;
+      }
+   }
+
+</style>

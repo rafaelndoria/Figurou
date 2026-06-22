@@ -9,7 +9,8 @@
             string imagemPagina,
             decimal largura,
             decimal altura,
-            Guid albumId)
+            Guid albumId,
+            Guid? selecaoId = null)
         {
             NumeroPagina = numeroPagina;
             ImagemPagina = imagemPagina;
@@ -19,6 +20,7 @@
 
             Figurinhas = new List<Figurinha>();
             SlotsPaginaAlbum = new List<SlotPaginaAlbum>();
+            SelecaoId = selecaoId;
         }
 
         public int NumeroPagina { get; private set; }
@@ -28,6 +30,8 @@
 
         public Album Album { get; private set; } = null!;
         public Guid AlbumId { get; private set; }
+        public Selecao Selecao { get; private set; } = null!;
+        public Guid? SelecaoId { get; private set; }
         public ICollection<Figurinha> Figurinhas { get; private set; }
         public ICollection<SlotPaginaAlbum> SlotsPaginaAlbum { get; private set; }
 
@@ -37,6 +41,11 @@
             ImagemPagina = imagemPagina;
             Largura = largura;
             Altura = altura;
+        }
+
+        public void AtualizarSelecao(Guid selecaoId)
+        {
+            SelecaoId = selecaoId;
         }
     }
 }

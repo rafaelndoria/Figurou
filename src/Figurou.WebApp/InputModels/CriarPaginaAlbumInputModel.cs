@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Figurou.WebApp.ViewModels;
+
+using System.ComponentModel.DataAnnotations;
 
 namespace Figurou.WebApp.InputModels
 {
@@ -23,5 +25,8 @@ namespace Figurou.WebApp.InputModels
         [Required(ErrorMessage = "A imagem da página é obrigatória.")]
         [DataType(DataType.Upload)]
         public IFormFile Imagem { get; set; } = null!;
+
+        public IEnumerable<SelecaoViewModel>? Selecoes { get; set; } = Enumerable.Empty<SelecaoViewModel>();
+        public Guid? SelecaoId { get; set; }
     }
 }

@@ -1,0 +1,108 @@
+﻿@model SelecaoListaViewModel
+@{
+   ViewData["Title"] = "Seleções";
+   ViewData["PageTitle"] = "Gerenciamento de Seleções";
+   ViewData["PageSubTitle"] = "Gerencie as seleções do álbum.";
+}
+
+<div class="selections-header">
+
+   <div>
+
+      <h2 class="album-name">
+         @(Model?.NomeAlbum ?? "Álbum")
+      </h2>
+
+      <span class="album-subtitle">
+         Total de seleções: @(Model?.Selecoes?.Count ?? 0)
+      </span>
+
+   </div>
+
+   <div class="header-actions">
+
+      <a asp-controller="Album"
+         asp-action="Index"
+         class="btn-back">
+
+         <i class="fa-solid fa-arrow-left"></i>
+         Voltar
+
+      </a>
+
+      <a asp-controller="Selecao"
+         asp-action="Criar"
+         asp-route-albumId="@Model.AlbumId"
+         class="btn-create">
+
+         <i class="fa-solid fa-plus"></i>
+         Nova Seleção
+
+      </a>
+
+   </div>
+
+</div>
+
+<partial name="_ListaSelecoes"
+         model="Model?.Selecoes ?? Enumerable.Empty<SelecaoViewModel>()" />
+
+<style>
+
+   .selections-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 30px;
+   }
+
+   .album-name {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+   }
+
+   .album-subtitle {
+      color: #94a3b8;
+   }
+
+   .header-actions {
+      display: flex;
+      gap: 12px;
+   }
+
+   .btn-back,
+   .btn-create {
+      height: 56px;
+      padding: 0 24px;
+      border-radius: 18px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+   }
+
+   .btn-back {
+      background: rgba(255,255,255,.08);
+      color: white;
+   }
+
+   .btn-back:hover {
+      color: white;
+      background: rgba(255,255,255,.12);
+   }
+
+   .btn-create {
+      background: linear-gradient(135deg,#7c3aed,#2563eb);
+      color: white;
+   }
+
+   .btn-create:hover {
+      color: white;
+      opacity: .95;
+   }
+
+</style>

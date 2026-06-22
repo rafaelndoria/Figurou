@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<AlbumViewModel>
-
 <div class="albums-grid">
 
    @foreach (var album in Model)
@@ -52,10 +51,25 @@
                   
                </div>
 
-               <a asp-controller="Pagina" asp-action="Index" asp-route-albumId="@album.Id" class="btn-action btn-pages">
-                  <i class="fa-solid fa-book-open"></i>
-                  Páginas
-               </a>
+               <div class="album-actions-bottom">
+
+                  <a asp-controller="Pagina"
+                     asp-action="Index"
+                     asp-route-albumId="@album.Id"
+                     class="btn-action btn-pages">
+                     <i class="fa-solid fa-book-open"></i>
+                     Páginas
+                  </a>
+
+                  <a asp-controller="Selecao"
+                     asp-action="Index"
+                     asp-route-albumId="@album.Id"
+                     class="btn-action btn-selections">
+                     <i class="fa-solid fa-images"></i>
+                     Seleções
+                  </a>
+
+               </div>
 
             </div>
 
@@ -102,10 +116,10 @@
       transition: .25s;
    }
 
-      .album-card:hover {
-         transform: translateY(-4px);
-         border-color: rgba(124,58,237,.45);
-      }
+   .album-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(124,58,237,.45);
+   }
 
    .album-image {
       width: 100%;
@@ -113,11 +127,11 @@
       overflow: hidden;
    }
 
-      .album-image img {
-         width: 100%;
-         height: 100%;
-         object-fit: cover;
-      }
+   .album-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+   }
 
    .album-content {
       padding: 22px;
@@ -160,20 +174,20 @@
       color: #60a5fa;
    }
 
-      .btn-edit:hover {
-         background: rgba(37,99,235,.25);
-         color: #93c5fd;
-      }
+   .btn-edit:hover {
+      background: rgba(37,99,235,.25);
+      color: #93c5fd;
+   }
 
    .btn-delete {
       background: rgba(239,68,68,.12);
       color: #f87171;
    }
 
-      .btn-delete:hover {
-         background: rgba(239,68,68,.2);
-         color: #fca5a5;
-      }
+   .btn-delete:hover {
+      background: rgba(239,68,68,.2);
+      color: #fca5a5;
+   }
 
    .btn-pages {
       width: 100%;
@@ -181,10 +195,25 @@
       color: #c4b5fd;
    }
 
-      .btn-pages:hover {
-         background: rgba(124,58,237,.25);
-         color: #ddd6fe;
-      }
+   .btn-pages:hover {
+      background: rgba(124,58,237,.25);
+      color: #ddd6fe;
+   }
+
+   .album-actions-bottom {
+      display: flex;
+      gap: 12px;
+   }
+
+   .btn-selections {
+      background: rgba(16,185,129,.15);
+      color: #6ee7b7;
+   }
+
+   .btn-selections:hover {
+      background: rgba(16,185,129,.25);
+      color: #a7f3d0;
+   }
 
    @@media(max-width:768px) {
 
@@ -192,9 +221,9 @@
          grid-template-columns: 1fr;
       }
 
-      .album-actions-top {
+      .album-actions-top,
+      .album-actions-bottom {
          flex-direction: column;
       }
    }
-
 </style>

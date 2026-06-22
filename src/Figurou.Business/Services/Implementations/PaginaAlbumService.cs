@@ -68,7 +68,8 @@ namespace Figurou.Business.Services.Implementations
                 paginaAlbumDTO.ImagemPagina,
                 paginaAlbumDTO.Largura,
                 paginaAlbumDTO.Altura,
-                paginaAlbumDTO.AlbumId);
+                paginaAlbumDTO.AlbumId,
+                paginaAlbumDTO.SelecaoId);
 
             await _paginaAlbumRepository.AdicionarAsync(paginaAlbum);
         }
@@ -87,7 +88,6 @@ namespace Figurou.Business.Services.Implementations
                 return Enumerable.Empty<PaginaAlbumDTO>();
 
             return album.Paginas
-                .OrderBy(x => x.NumeroPagina)
                 .Select(x => new PaginaAlbumDTO(
                     x.Id,
                     x.NumeroPagina,
@@ -95,8 +95,11 @@ namespace Figurou.Business.Services.Implementations
                     x.Largura,
                     x.Altura,
                     x.Album.Id,
-                    x.Album.Nome
-                ));
+                    x.Album?.Nome ?? album.Nome,
+                    x.SelecaoId,
+                    x.Selecao?.Codigo,
+                    x.Selecao?.Nome
+                )).OrderBy(x => x.NumeroPagina);
         }
 
         public async Task<PaginaAlbumDTO?> ObterPaginaPorId(Guid id)
@@ -116,7 +119,8 @@ namespace Figurou.Business.Services.Implementations
                 paginaAlbum.Largura,
                 paginaAlbum.Altura,
                 paginaAlbum.Album.Id,
-                paginaAlbum.Album.Nome
+                paginaAlbum.Album.Nome,
+                paginaAlbum.SelecaoId
             );
         }
 
@@ -164,6 +168,11 @@ namespace Figurou.Business.Services.Implementations
                 paginaAlbumDTO.ImagemPagina,
                 paginaAlbumDTO.Largura,
                 paginaAlbumDTO.Altura);
+
+            if (paginaAlbumDTO.SelecaoId != null && paginaAlbumExiste.SelecaoId != paginaAlbumDTO.SelecaoId)
+            {
+                paginaAlbumExiste.AtualizarSelecao((Guid)paginaAlbumDTO.SelecaoId);
+            }
 
             await _paginaAlbumRepository.AtualizarAsync(paginaAlbumExiste);
         }

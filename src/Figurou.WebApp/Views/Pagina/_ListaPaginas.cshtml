@@ -32,6 +32,13 @@ else
 
                <div class="page-description">
                   Página @pagina.NumeroPagina
+
+                  @if (pagina.SelecaoId != null)
+                  {
+                     <span>
+                        - @pagina.SelecaoCodigo - @pagina.SelecaoNome
+                     </span>
+                  }
                </div>
 
                <div class="page-actions">

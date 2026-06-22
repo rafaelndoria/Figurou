@@ -16,14 +16,17 @@ namespace Figurou.WebApp.Controllers
     {
         private readonly IPaginaAlbumService _paginaAlbumService;
         private readonly IArquivoService _arquivoService;
+        private readonly ISelecaoRepository _selecaoRepository;
 
         public PaginaController(
             INotificador notificador,
             IPaginaAlbumService paginaAlbumService,
-            IArquivoService arquivoService) : base(notificador)
+            IArquivoService arquivoService,
+            ISelecaoRepository selecaoRepository) : base(notificador)
         {
             _paginaAlbumService = paginaAlbumService;
             _arquivoService = arquivoService;
+            _selecaoRepository = selecaoRepository;
         }
 
         [HttpGet]
@@ -34,26 +37,35 @@ namespace Figurou.WebApp.Controllers
         }
 
         [HttpGet("criar")]
-        public IActionResult Criar(Guid albumId)
+        public async Task<IActionResult> Criar(Guid albumId)
         {
-            return View(new CriarPaginaAlbumInputModel { AlbumId = albumId });
+            return View(new CriarPaginaAlbumInputModel
+            {
+                AlbumId = albumId,
+                Selecoes = await BuscarSelecoes(albumId)
+            });
         }
 
         [HttpPost("criar")]
         public async Task<IActionResult> Criar(CriarPaginaAlbumInputModel inputModel)
         {
             if (!ModelState.IsValid)
+            {
+                inputModel.Selecoes = await BuscarSelecoes(inputModel.AlbumId);
                 return View(inputModel);
+            }
 
             if (inputModel.Imagem == null)
             {
                 ModelState.AddModelError(nameof(inputModel.Imagem), "A imagem da página é obrigatória.");
+                inputModel.Selecoes = await BuscarSelecoes(inputModel.AlbumId);
                 return View(inputModel);
             }
 
             if (await _paginaAlbumService.ExistePagina(inputModel.AlbumId, inputModel.NumeroPagina))
             {
                 ModelState.AddModelError(nameof(inputModel.NumeroPagina), "Já existe uma página com esse número cadastrada.");
+                inputModel.Selecoes = await BuscarSelecoes(inputModel.AlbumId);
                 return View(inputModel);
             }
 
@@ -63,7 +75,10 @@ namespace Figurou.WebApp.Controllers
                 "uploads/paginas-album");
 
             if (!OperacaoValida() || string.IsNullOrEmpty(caminhoImagem))
+            {
+                inputModel.Selecoes = await BuscarSelecoes(inputModel.AlbumId);
                 return View(inputModel);
+            }
 
             var paginaAlbumDTO = new SalvarPaginaAlbumDTO(
                 Guid.NewGuid(),
@@ -71,12 +86,16 @@ namespace Figurou.WebApp.Controllers
                 caminhoImagem,
                 inputModel.Largura,
                 inputModel.Altura,
-                inputModel.AlbumId);
+                inputModel.AlbumId,
+                inputModel.SelecaoId);
 
             await _paginaAlbumService.Adicionar(paginaAlbumDTO);
 
             if (!OperacaoValida())
+            {
+                inputModel.Selecoes = await BuscarSelecoes(inputModel.AlbumId);
                 return View(inputModel);
+            }
 
             ViewBag.Sucesso = "Página criada com sucesso!";
             return RedirectToAction(nameof(Index), new { albumId = inputModel.AlbumId });
@@ -96,7 +115,9 @@ namespace Figurou.WebApp.Controllers
                 NumeroPagina = paginaAlbumDTO.NumeroPagina,
                 ImagemPagina = paginaAlbumDTO.ImagemPagina,
                 Largura = paginaAlbumDTO.Largura,
-                Altura = paginaAlbumDTO.Altura
+                Altura = paginaAlbumDTO.Altura,
+                SelecaoId = paginaAlbumDTO.SelecaoId,
+                Selecoes = await BuscarSelecoes(albumId)
             };
 
             return View(inputModel);
@@ -106,12 +127,16 @@ namespace Figurou.WebApp.Controllers
         public async Task<IActionResult> Editar(Guid id, Guid albumId, AtualizarPaginaAlbumInputModel inputModel)
         {
             if (!ModelState.IsValid)
+            {
+                inputModel.Selecoes = await BuscarSelecoes(albumId);
                 return View(inputModel);
+            }
 
             if (inputModel.NovaImagem != null)
             {
                 if (!_arquivoService.DeletarImagem(inputModel.ImagemPagina))
                 {
+                    inputModel.Selecoes = await BuscarSelecoes(inputModel.AlbumId);
                     AdicionarNotificacao("Não foi possível deletar a imagem anterior.");
                     return View(inputModel);
                 }
@@ -123,6 +148,7 @@ namespace Figurou.WebApp.Controllers
 
                 if (string.IsNullOrEmpty(novoCaminho))
                 {
+                    inputModel.Selecoes = await BuscarSelecoes(inputModel.AlbumId);
                     AdicionarNotificacao("Não foi possível salvar a nova imagem.");
                     return View(inputModel);
                 }
@@ -136,12 +162,16 @@ namespace Figurou.WebApp.Controllers
                 inputModel.ImagemPagina,
                 inputModel.Largura,
                 inputModel.Altura,
-                inputModel.AlbumId);
+                inputModel.AlbumId,
+                inputModel.SelecaoId);
 
             await _paginaAlbumService.Atualizar(id, atualizarDTO);
 
             if (!OperacaoValida())
+            {
+                inputModel.Selecoes = await BuscarSelecoes(inputModel.AlbumId);
                 return View(inputModel);
+            }
 
             ViewBag.Sucesso = "Página atualizada com sucesso!";
             return RedirectToAction(nameof(Editar), new { id, albumId });
@@ -161,6 +191,7 @@ namespace Figurou.WebApp.Controllers
 
             var primeiraPagina = paginasDTO.FirstOrDefault();
 
+
             return new PaginaAlbumViewModel
             {
                 AlbumId = albumId,
@@ -170,9 +201,25 @@ namespace Figurou.WebApp.Controllers
                     Id = x.Id,
                     NumeroPagina = x.NumeroPagina,
                     ImagemPagina = x.ImagemPagina,
-                    AlbumId = x.AlbumId
+                    AlbumId = x.AlbumId,
+                    SelecaoId = x.SelecaoId,
+                    SelecaoNome = x.NomeSelecao,
+                    SelecaoCodigo = x.CodigoSelecao
                 }).OrderBy(x => x.NumeroPagina).ToList()
             };
+        }
+
+        private async Task<IEnumerable<SelecaoViewModel>> BuscarSelecoes(Guid albumId)
+        {
+            var selecoes = await _selecaoRepository.BuscarAsync(x => x.AlbumId == albumId);
+
+            return selecoes.Select(x => new SelecaoViewModel
+            {
+                Id = x.Id,
+                AlbumId = x.AlbumId,
+                Codigo = x.Codigo,
+                Nome = x.Nome
+            });
         }
     }
 }

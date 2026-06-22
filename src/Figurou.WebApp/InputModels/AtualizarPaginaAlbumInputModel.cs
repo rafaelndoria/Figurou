@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Figurou.WebApp.ViewModels;
+
+using System.ComponentModel.DataAnnotations;
 
 namespace Figurou.WebApp.InputModels
 {
@@ -30,5 +32,8 @@ namespace Figurou.WebApp.InputModels
 
         [Display(Name = "Nova Imagem")]
         public IFormFile? NovaImagem { get; set; }
+
+        public IEnumerable<SelecaoViewModel>? Selecoes { get; set; } = Enumerable.Empty<SelecaoViewModel>();
+        public Guid? SelecaoId { get; set; }
     }
 }
