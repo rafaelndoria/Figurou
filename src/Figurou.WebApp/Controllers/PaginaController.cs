@@ -2,6 +2,7 @@
 using Figurou.Business.Enums;
 using Figurou.Business.Interfaces;
 using Figurou.Business.Services.Interfaces;
+using Figurou.WebApp.Auth;
 using Figurou.WebApp.InputModels;
 using Figurou.WebApp.ViewModels;
 
@@ -20,9 +21,10 @@ namespace Figurou.WebApp.Controllers
 
         public PaginaController(
             INotificador notificador,
+            IUsuarioAutenticado usuario,
             IPaginaAlbumService paginaAlbumService,
             IArquivoService arquivoService,
-            ISelecaoRepository selecaoRepository) : base(notificador)
+            ISelecaoRepository selecaoRepository) : base(notificador, usuario)
         {
             _paginaAlbumService = paginaAlbumService;
             _arquivoService = arquivoService;

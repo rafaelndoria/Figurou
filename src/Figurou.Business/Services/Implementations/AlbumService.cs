@@ -11,14 +11,17 @@ namespace Figurou.Business.Services.Implementations
 
         private readonly IAlbumRepository _albumRepository;
         private readonly IArquivoService _arquivoService;
+        private readonly IUsuarioRepository _usuarioRepository;
 
         public AlbumService(
             INotificador notificador,
             IAlbumRepository albumRepository,
-            IArquivoService arquivoService) : base(notificador)
+            IArquivoService arquivoService,
+            IUsuarioRepository usuarioRepository) : base(notificador)
         {
             _albumRepository = albumRepository;
             _arquivoService = arquivoService;
+            _usuarioRepository = usuarioRepository;
         }
 
         public async Task Atualizar(Guid id, SalvarAlbumDTO atualizarAlbumDTO)
@@ -134,6 +137,89 @@ namespace Figurou.Business.Services.Implementations
                 album.Ativar();
 
             await _albumRepository.AtualizarAsync(album);
+        }
+
+        public async Task<AlbumVirtualDTO> BuscarAlbumVirtualUsuario(Guid usuarioId)
+        {
+            var usuario = await _usuarioRepository.BuscarUsuarioCompleto(usuarioId);
+
+            var figurinhasUsuario = usuario.FigurinhasUsuario
+                .ToDictionary(x => x.FigurinhaId);
+
+            var albumVirtualDTO = new AlbumVirtualDTO(
+                usuario.Album.Id,
+                usuario.Album.Nome,
+                usuario.Album.TotalFigurinhas,
+                usuario.FigurinhasUsuario.Count,
+                usuario.FigurinhasUsuario.Where(x => x.Quantidade > 1).ToList().Count(),
+                usuario.Album.TotalFigurinhas - usuario.FigurinhasUsuario.Count);
+
+            var paginasComSelecao = usuario.Album.Paginas
+                .Where(x => x.SelecaoId.HasValue)
+                .OrderBy(x => x.NumeroPagina)
+                .GroupBy(x => x.SelecaoId);
+
+            foreach (var grupo in paginasComSelecao)
+            {
+                var grupoDTO = new GrupoAlbumVirtualDTO(
+                    grupo.First().Selecao.Nome,
+                    grupo.Min(x => x.NumeroPagina),
+                    grupo.Max(x => x.NumeroPagina));
+
+                foreach (var figurinha in grupo.SelectMany(x => x.Figurinhas))
+                {
+                    figurinhasUsuario.TryGetValue(
+                        figurinha.Id,
+                        out var figurinhaUsuario);
+
+                    var quantidade = figurinhaUsuario != null ? figurinhaUsuario.Quantidade : 0;
+
+                    grupoDTO.AdicionarFigurinha(
+                        new FigurinhaAlbumVirtualDTO(
+                            figurinha.Id,
+                            figurinha.Codigo,
+                            figurinha.Raridade,
+                            quantidade,
+                            figurinha.Numero,
+                            figurinha.NomeJogador));
+                }
+
+                albumVirtualDTO.AdicionarGrupo(grupoDTO);
+            }
+
+            var paginasSemSelecao = usuario.Album.Paginas
+                .Where(x => !x.SelecaoId.HasValue)
+                .OrderBy(x => x.NumeroPagina);
+
+            foreach (var pagina in paginasSemSelecao)
+            {
+                var grupoDTO = new GrupoAlbumVirtualDTO(
+                    "",
+                    pagina.NumeroPagina,
+                    pagina.NumeroPagina);
+
+                foreach (var figurinha in pagina.Figurinhas)
+                {
+                    figurinhasUsuario.TryGetValue(
+                        figurinha.Id,
+                        out var figurinhaUsuario);
+
+                    var quantidade = figurinhaUsuario != null ? figurinhaUsuario.Quantidade : 0;
+
+                    grupoDTO.AdicionarFigurinha(
+                        new FigurinhaAlbumVirtualDTO(
+                            figurinha.Id,
+                            figurinha.Codigo,
+                            figurinha.Raridade,
+                            quantidade,
+                            figurinha.Numero,
+                            figurinha.NomeJogador));
+                }
+
+                albumVirtualDTO.AdicionarGrupo(grupoDTO);
+            }
+
+            return albumVirtualDTO;
         }
     }
 }

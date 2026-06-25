@@ -11,5 +11,6 @@ namespace Figurou.Business.Services.Interfaces
         Task AlterarStatus(Guid id);
         Task<string?> AtualizarCapa(Guid id, Stream arquivo, string nomeArquivo);
         Task<string?> AdicionarCapa(Stream arquivo, string nomeArquivo);
+        Task<AlbumVirtualDTO> BuscarAlbumVirtualUsuario(Guid usuarioId);
     }
 }

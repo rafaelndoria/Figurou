@@ -36,24 +36,30 @@ namespace Figurou.Business.Services.Implementations
             }
         }
 
-        public string GerarJwtToken(string email, string nomeUsuario, EUsuarioRole papel, Guid usuarioId)
+        public string GerarJwtToken(string email, string nomeUsuario, EUsuarioRole papel, Guid usuarioId, Guid? albumId)
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.Secret));
             var issuer = _settings.Emissor;
             var audience = _settings.ValidoEm;
 
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, nomeUsuario),
+                new Claim(ClaimTypes.Email, email),
+                new Claim(ClaimTypes.Role, papel.ToString()),
+                new Claim("UsuarioId", usuarioId.ToString())
+            };
+
+            if (albumId != null)
+            {
+                claims.Add(new Claim("AlbumId", albumId.ToString()));
+            }
 
             var tokenOptions = new JwtSecurityToken(
                 issuer: issuer,
                 audience: audience,
-                claims: new[]
-                {
-                    new Claim(type: ClaimTypes.Name, nomeUsuario),
-                    new Claim(type: ClaimTypes.Email, email),
-                    new Claim(type: ClaimTypes.Role, papel.ToString()),
-                    new Claim("UsuarioId", usuarioId.ToString())
-                },
+                claims: claims,
                 expires: DateTime.Now.AddHours(4),
                 signingCredentials: signinCredentials);
 

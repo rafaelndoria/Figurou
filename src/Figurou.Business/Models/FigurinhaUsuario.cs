@@ -2,19 +2,21 @@
 {
     public class FigurinhaUsuario : Entidade
     {
-        protected FigurinhaUsuario() { }
+        public FigurinhaUsuario() { }
 
-        public FigurinhaUsuario(bool possuiNoAlbum = true)
+        public FigurinhaUsuario(Guid figurinhaId, Guid usuarioId, int quantidade, bool possuiNoAlbum = true)
         {
+            FigurinhaId = figurinhaId;
+            UsuarioId = usuarioId;
             PossuiNoAlbum = possuiNoAlbum;
 
-            QuantidadeRepetida = 0;
+            Quantidade = quantidade;
 
             AtualizarDisponibilidadeTroca();
         }
 
         public bool PossuiNoAlbum { get; private set; }
-        public int QuantidadeRepetida { get; private set; }
+        public int Quantidade { get; private set; }
         public bool DisponivelTroca { get; private set; }
 
         public Usuario Usuario { get; private set; } = null!;
@@ -25,24 +27,32 @@
 
         public void AdicionarRepetida()
         {
-            QuantidadeRepetida++;
+            Quantidade++;
 
             AtualizarDisponibilidadeTroca();
         }
 
         public void RemoverRepetida()
         {
-            if (QuantidadeRepetida <= 0)
+            if (Quantidade <= 0)
                 return;
 
-            QuantidadeRepetida--;
+            Quantidade--;
 
             AtualizarDisponibilidadeTroca();
         }
 
         private void AtualizarDisponibilidadeTroca()
         {
-            DisponivelTroca = QuantidadeRepetida > 0;
+            DisponivelTroca = Quantidade > 1;
+        }
+
+        public void Atualizar(int quantidade)
+        {
+            if (quantidade <= 0)
+                return;
+            Quantidade = quantidade;
+            AtualizarDisponibilidadeTroca();
         }
     }
 }

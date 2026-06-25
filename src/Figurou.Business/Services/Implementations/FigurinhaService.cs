@@ -8,10 +8,18 @@ namespace Figurou.Business.Services.Implementations
     public class FigurinhaService : BaseService, IFigurinhaService
     {
         private readonly IFigurinhaRepository _figurinhaRepository;
+        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IFigurinhaUsuarioRepository _figurinhaUsuarioRepository;
 
-        public FigurinhaService(INotificador notificador, IFigurinhaRepository figurinhaRepository) : base(notificador)
+        public FigurinhaService(
+            INotificador notificador,
+            IFigurinhaRepository figurinhaRepository,
+            IUsuarioRepository usuarioRepository,
+            IFigurinhaUsuarioRepository figurinhaUsuarioRepository) : base(notificador)
         {
             _figurinhaRepository = figurinhaRepository;
+            _usuarioRepository = usuarioRepository;
+            _figurinhaUsuarioRepository = figurinhaUsuarioRepository;
         }
 
         public async Task<FigurinhaDTO?> ObterPorId(Guid id)
@@ -174,6 +182,30 @@ namespace Figurou.Business.Services.Implementations
             }
 
             await _figurinhaRepository.RemoverAsync(figurinha);
+        }
+
+        public async Task AdicionarFigurinhaUsuario(Guid albumId, Guid usuarioId, IEnumerable<SalvarFigurinhaUsuarioDTO> figurinhas)
+        {
+            var usuario = await _usuarioRepository
+                .BuscarUsuarioFigurinhasColetadas(usuarioId);
+
+            foreach (var figurinha in figurinhas)
+            {
+                var figurinhaExistente = usuario.FigurinhasUsuario
+                    .FirstOrDefault(x => x.FigurinhaId == figurinha.FigurinhaId);
+
+                if (figurinhaExistente == null)
+                {
+                    var figurinhaUsuario = new FigurinhaUsuario(figurinha.FigurinhaId, usuarioId, figurinha.Quantidade);
+                    _figurinhaUsuarioRepository.AdicionarSalvar(figurinhaUsuario);
+                }
+                else
+                {
+                    figurinhaExistente.Atualizar(figurinha.Quantidade);
+                }
+            }
+
+            await _figurinhaUsuarioRepository.SalvarAlteracoesAsync();
         }
     }
 }

@@ -2,6 +2,7 @@
 using Figurou.Business.Enums;
 using Figurou.Business.Interfaces;
 using Figurou.Business.Services.Interfaces;
+using Figurou.WebApp.Auth;
 using Figurou.WebApp.InputModels;
 using Figurou.WebApp.ViewModels;
 
@@ -16,7 +17,7 @@ namespace Figurou.WebApp.Controllers
     {
         private readonly IAlbumService _albumService;
 
-        public AlbumController(INotificador notificador, IAlbumService albumService) : base(notificador)
+        public AlbumController(INotificador notificador, IUsuarioAutenticado usuario, IAlbumService albumService) : base(notificador, usuario)
         {
             _albumService = albumService;
         }

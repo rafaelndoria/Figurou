@@ -35,6 +35,10 @@ namespace Figurou.Data.Mapping
             builder.Property(x => x.DataCriacao)
                 .IsRequired();
 
+            builder.HasOne(x => x.Album)
+                .WithMany(x => x.AlbunsEscolhidosUsuarios)
+                .HasForeignKey(x => x.AlbumEscolhidoId);
+
             builder.HasIndex(x => x.Email)
                 .IsUnique();
 

@@ -42,6 +42,36 @@ namespace Figurou.Business.Services.Implementations
             return usuario;
         }
 
+        public async Task EscolherAlbumUsuario(Guid usuarioId, Guid albumId)
+        {
+            var usuario = await _usuarioRepository.ObterPorIdAsync(usuarioId);
+
+            if (usuario == null)
+            {
+                Notificar("Usuario não encontrado");
+                return;
+            }
+
+            usuario.EscolherAlbum(albumId);
+
+            await _usuarioRepository.AtualizarAsync(usuario);
+        }
+
+        public async Task RemoverAlbumUsuario(Guid usuarioId, Guid albumId)
+        {
+            var usuario = await _usuarioRepository.ObterPorIdAsync(usuarioId);
+
+            if (usuario == null)
+            {
+                Notificar("Usuario não encontrado");
+                return;
+            }
+
+            usuario.RemoverAlbum();
+
+            await _usuarioRepository.AtualizarAsync(usuario);
+        }
+
         public async Task<Usuario?> Login(LoginUsuarioDTO loginUsuario)
         {
             var senhaCodificada = _authService.CriptografarSenha(loginUsuario.Senha);

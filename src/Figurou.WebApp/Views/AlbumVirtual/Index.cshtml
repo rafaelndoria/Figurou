@@ -1,0 +1,132 @@
+﻿@using Figurou.Business.Enums
+@model AlbumVirtualViewModel
+
+@{
+   ViewData["Title"] = "Álbum Virtual";
+}
+
+<link rel="stylesheet" href="~/css/album-virtual.css" />
+
+<input type="hidden" id="AlbumId" value="@Model.AlbumId" />
+
+<div class="album-container">
+
+   <!-- HEADER -->
+   <div class="album-header">
+
+      <div class="album-title-area">
+
+         <h1>@Model.NomeAlbum</h1>
+
+         <div class="search-wrapper">
+
+            <input type="text"
+                   id="txtPesquisar"
+                   placeholder="Buscar código, jogador ou seleção..." />
+
+            <div id="searchResults"></div>
+
+         </div>
+
+      </div>
+
+      <button id="btnSalvar" class="btn-save">
+         💾 Salvar
+         <span id="pendingBadge">0</span>
+      </button>
+
+   </div>
+
+   <!-- LEGENDA -->
+   <div class="legend">
+      <span><i class="dot comum"></i>Comum</span>
+      <span><i class="dot brilhante"></i>Brilhante</span>
+      <span><i class="dot rara"></i>Rara</span>
+      <span><i class="dot lendaria"></i>Lendária</span>
+   </div>
+
+   <!-- STATS -->
+   <div class="stats">
+      <div><span id="totalFigurinhas">Total: @Model.TotalFigurinhas</span></div>
+      <div><span id="totalPossuidas">Possuo: @Model.TotalPossuidas</span></div>
+      <div><span id="totalRepetidas">Repetidas: @Model.TotalRepetidas</span></div>
+      <div><span id="totalFaltantes">Faltam: @Model.TotalFaltantes</span></div>
+   </div>
+
+   <!-- GRUPOS -->
+   @foreach (var grupo in Model.Grupos)
+   {
+      <div class="group-card">
+
+         <div class="group-header">
+            <div>
+               <h3>@grupo.NomeGrupo</h3>
+
+               <span>
+                  Página @(grupo.PaginaInicial == grupo.PaginaFinal
+                                 ? grupo.PaginaInicial
+                                 : $"{grupo.PaginaInicial} - {grupo.PaginaFinal}")
+            </span>
+         </div>
+
+            <div class="group-count">
+               @grupo.Figurinhas.Count() figurinhas
+            </div>
+         </div>
+
+         <div class="group-content">
+
+            <div class="stickers-grid">
+
+            @foreach (var fig in grupo.Figurinhas)
+               {
+                  var classe = fig.Raridade switch
+                  {
+                     ETipoRaridade.Comum => "comum",
+                     ETipoRaridade.Brilhante => "brilhante",
+                     ETipoRaridade.Rara => "rara",
+                     ETipoRaridade.Lendaria => "lendaria",
+                     _ => "comum"
+                  };
+
+                  <div class="sticker-card @classe"
+                       data-id="@fig.FigurinhaId"
+                       data-codigo="@fig.Codigo"
+                       data-jogador="@fig.NomeJogador"
+                       data-grupo="@grupo.NomeGrupo"
+                       data-original="@fig.Quantidade">
+
+                     <div class="frame">
+                        <span>@fig.Codigo</span>
+                     </div>
+
+                     <div class="player">
+                        @(string.IsNullOrWhiteSpace(fig.NomeJogador)
+                                          ? "Sem jogador"
+                                          : fig.NomeJogador)
+               </div>
+
+                     <div class="controls">
+
+                        <button type="button" class="minus">-</button>
+
+                        <span class="qty">@fig.Quantidade</span>
+
+                        <button type="button" class="plus">+</button>
+
+                     </div>
+
+                  </div>
+                        }
+
+            </div>
+
+         </div>
+
+      </div>
+   }
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="~/js/album-virtual.js"></script>

@@ -23,6 +23,7 @@
             Paginas = new List<PaginaAlbum>();
             Figurinhas = new List<Figurinha>();
             Selecoes = new List<Selecao>();
+            AlbunsEscolhidosUsuarios = new List<Usuario>();
         }
 
         public string Nome { get; private set; }
@@ -36,6 +37,7 @@
         public ICollection<PaginaAlbum> Paginas { get; private set; }
         public ICollection<Figurinha> Figurinhas { get; private set; }
         public ICollection<Selecao> Selecoes { get; private set; }
+        public ICollection<Usuario> AlbunsEscolhidosUsuarios { get; private set; }
 
         public void Atualizar(string nome, int ano, string descricao, string imagemCapa, int totalFigurinhas)
         {

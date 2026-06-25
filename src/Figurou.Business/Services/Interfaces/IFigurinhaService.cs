@@ -9,5 +9,6 @@ namespace Figurou.Business.Services.Interfaces
         Task Cadastrar(SalvarFigurinhaDTO figurinhaDTO);
         Task Deletar(Guid id);
         Task Atualizar(Guid id, SalvarFigurinhaDTO figurinhaDTO);
+        Task AdicionarFigurinhaUsuario(Guid albumId, Guid usuarioId, IEnumerable<SalvarFigurinhaUsuarioDTO> figurinhas);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Figurou.Business.Interfaces;
+using Figurou.WebApp.Auth;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ namespace Figurou.WebApp.Controllers
     [Authorize]
     public class DashboardController : BaseController
     {
-        public DashboardController(INotificador notificador) : base(notificador)
+        public DashboardController(INotificador notificador, IUsuarioAutenticado usuario) : base(notificador, usuario)
         {
         }
 

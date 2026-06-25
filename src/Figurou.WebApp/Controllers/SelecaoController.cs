@@ -2,6 +2,7 @@
 using Figurou.Business.Enums;
 using Figurou.Business.Interfaces;
 using Figurou.Business.Services.Interfaces;
+using Figurou.WebApp.Auth;
 using Figurou.WebApp.InputModels;
 using Figurou.WebApp.ViewModels;
 
@@ -17,7 +18,11 @@ namespace Figurou.WebApp.Controllers
         private readonly ISelecaoService _selecaoService;
         private readonly ISelecaoRepository _selecaoRepository;
 
-        public SelecaoController(INotificador notificador, ISelecaoService selecaoService, ISelecaoRepository selecaoRepository) : base(notificador)
+        public SelecaoController(
+            INotificador notificador,
+            IUsuarioAutenticado usuario,
+            ISelecaoService selecaoService,
+            ISelecaoRepository selecaoRepository) : base(notificador, usuario)
         {
             _selecaoService = selecaoService;
             _selecaoRepository = selecaoRepository;

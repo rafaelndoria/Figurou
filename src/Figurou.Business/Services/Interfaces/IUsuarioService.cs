@@ -7,5 +7,7 @@ namespace Figurou.Business.Services.Interfaces
     {
         Task<Usuario?> Cadastrar(CadastrarUsuarioDTO registroUsuario);
         Task<Usuario?> Login(LoginUsuarioDTO loginUsuario);
+        Task EscolherAlbumUsuario(Guid usuarioId, Guid albumId);
+        Task RemoverAlbumUsuario(Guid usuarioId, Guid albumId);
     }
 }

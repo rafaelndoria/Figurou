@@ -8,6 +8,7 @@
         public int TotalFigurinhas { get; set; }
         public int Ano { get; set; }
         public bool Ativo { get; set; }
+        public bool UsuarioSelecionado { get; set; }
         public Guid Id { get; set; }
     }
 }

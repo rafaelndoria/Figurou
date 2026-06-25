@@ -30,11 +30,11 @@
                   <i class="fa-solid fa-chart-line"></i>
                   <span>Dashboard</span>
                </a>
-               <a href="/album/meu-album" class="sidebar-link">
+               <a asp-controller="Usuario" asp-action="EscolherAlbum" class="sidebar-link">
                   <i class="fa-solid fa-book"></i>
-                  <span>Meu Álbum</span>
+                  <span>Escolher Álbum</span>
                </a>
-               <a href="/album/virtual" class="sidebar-link">
+               <a asp-controller="AlbumVirtual" asp-action="Index" class="sidebar-link">
                   <i class="fa-solid fa-images"></i>
                   <span>Álbum Virtual</span>
                </a>
@@ -53,6 +53,7 @@
                <a href="/mensagens" class="sidebar-link">
                   <i class="fa-solid fa-message"></i>
                   <span>Mensagens</span>
+               </a>
             </nav>
             <!-- ADMIN -->
             <div class="sidebar-section mt-4">

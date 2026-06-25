@@ -14,7 +14,7 @@ namespace Figurou.Data.Mapping
             builder.Property(x => x.PossuiNoAlbum)
                 .IsRequired();
 
-            builder.Property(x => x.QuantidadeRepetida)
+            builder.Property(x => x.Quantidade)
                 .IsRequired();
 
             builder.Property(x => x.DisponivelTroca)

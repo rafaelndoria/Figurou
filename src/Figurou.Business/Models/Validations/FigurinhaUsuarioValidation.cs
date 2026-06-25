@@ -6,7 +6,7 @@ namespace Figurou.Business.Models.Validations
     {
         public FigurinhaUsuarioValidation()
         {
-            RuleFor(x => x.QuantidadeRepetida)
+            RuleFor(x => x.Quantidade)
                 .GreaterThanOrEqualTo(0)
                     .WithMessage("O campo {PropertyName} não pode ser negativo.");
 
@@ -22,7 +22,7 @@ namespace Figurou.Business.Models.Validations
         private static bool ValidarDisponibilidadeTroca(FigurinhaUsuario figurinhaUsuario)
         {
             return figurinhaUsuario.DisponivelTroca ==
-                   (figurinhaUsuario.QuantidadeRepetida > 0);
+                   (figurinhaUsuario.Quantidade > 0);
         }
     }
 }

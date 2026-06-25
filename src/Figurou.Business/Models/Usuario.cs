@@ -35,6 +35,9 @@ namespace Figurou.Business.Models
         public DateTime DataCriacao { get; private set; }
         public EUsuarioRole Papel { get; private set; }
 
+        public Album Album { get; private set; } = null!;
+        public Guid? AlbumEscolhidoId { get; private set; }
+
         public UsuarioDetalhe? UsuarioDetalhes { get; private set; }
 
         public ICollection<FigurinhaUsuario> FigurinhasUsuario { get; private set; }
@@ -71,6 +74,21 @@ namespace Figurou.Business.Models
         public void Ativar()
         {
             Ativo = true;
+        }
+
+        public void EscolherAlbum(Guid id)
+        {
+            AlbumEscolhidoId = id;
+        }
+
+        public void RemoverAlbum()
+        {
+            AlbumEscolhidoId = null;
+        }
+
+        public void AdicionarFigurinha(FigurinhaUsuario figurinha)
+        {
+            FigurinhasUsuario.Add(figurinha);
         }
     }
 }
