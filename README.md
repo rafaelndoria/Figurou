@@ -10,14 +10,6 @@ A proposta do Figurou é centralizar toda essa experiência em uma única plataf
 
 ---
 
-## 🎥 Demonstração
-
-O projeto possui uma interface responsiva desenvolvida para utilização tanto em desktop quanto em dispositivos móveis.
-
-> 📌 Adicione aqui o link para o vídeo de demonstração publicado no LinkedIn.
-
----
-
 ## ✨ Funcionalidades
 
 ### 📚 Álbum Virtual
